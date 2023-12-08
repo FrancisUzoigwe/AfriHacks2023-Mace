@@ -29,9 +29,10 @@ const Offers: React.FC<iOffer> = ({ logo, text, subText }) => {
 
 const LandingScreen = () => {
   const viral = {
-    visible: { x: 0, opacity: 1, transition: { delay: 0.9 } },
+    visible: { x: 0, opacity: 1, transition: { delay: 2 } },
     hidden: { x: "-200px", opacity: 0 },
   };
+
   return (
     <div className="w-full h-auto flex flex-col items-center bg-[#EEEEEE] ">
       <div className="w-[95%] h-auto rounded-xl flex items-center ">
@@ -66,15 +67,15 @@ const LandingScreen = () => {
             </div>
             <div className="flex flex-col items-end max-md:hidden pr-2 ">
               <div className="font-extrabold hover:cursor-pointer ">
-                Description
+                Description: 
               </div>
               <div>
                 <div className="text-[14px] font-semibold hover:cursor-pointer font-[Ever]">
                   * Water resistant, durable design
                 </div>
                 <div className="font-semibold text-[14px] hover:cursor-pointer font-[Ever]">
-                  * Up to 24
-                  <span className="font-[Zah] ">hrs</span> on a single charge
+                  * Up to 48HRs
+                   on a single charge
                 </div>
               </div>
             </div>
@@ -111,9 +112,9 @@ const LandingScreen = () => {
           logo={<RiRobot2Fill />}
         />
       </div>
-      <div className="text-4xl font-bold mt-5 max-sm:text-3xl text-center w-[80%]">
+      <motion.div className="text-4xl font-bold mt-5 max-sm:text-3xl text-center w-[80%]">
         Current Best Selling Products
-      </div>
+      </motion.div>
       <div className="text-[14px] text-gray-400 font-bold">
         Available for limited time
       </div>
