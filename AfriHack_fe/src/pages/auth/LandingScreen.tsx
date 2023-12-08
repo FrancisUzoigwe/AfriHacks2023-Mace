@@ -7,6 +7,7 @@ import { SiAdguard } from "react-icons/si";
 import { BiSupport } from "react-icons/bi";
 import { RiRobot2Fill } from "react-icons/ri";
 import React from "react";
+import Cards from "../../components/private/Cards";
 
 interface iOffer {
   logo?: any;
@@ -88,7 +89,7 @@ const LandingScreen = () => {
         <Contents background="bg-white" />
         <Contents background="bg-white" />
       </div>
-      <div className="w-[90%] h-auto grid grid-cols-4 max-sm:grid-cols-1   max-md:grid-cols-2 gap-2">
+      <div className="w-[90%] h-auto grid grid-cols-4 max-sm:grid-cols-1 mt-4  max-md:grid-cols-2 gap-2">
         <Offers
           logo={<MdDeliveryDining />}
           text="Free delivery"
@@ -109,6 +110,24 @@ const LandingScreen = () => {
           subText="Ai integrated payment system"
           logo={<RiRobot2Fill />}
         />
+      </div>
+      <div className="text-4xl font-bold mt-5 max-sm:text-3xl text-center w-[80%]">
+        Current Best Selling Products
+      </div>
+      <div className="text-[14px] text-gray-400 font-bold">
+        Available for limited time
+      </div>
+      <div className="w-full  mt-3 flex justify-center items-center">
+        <div className="w-[90%] grid grid-cols-4 gap-10 max-md:grid-cols-3 max-sm:grid-cols-2 ">
+          <Cards />
+          <Cards />
+          <Cards />
+          <Cards />
+          <Cards />
+          <Cards />
+          <Cards />
+          <Cards />
+        </div>
       </div>
     </div>
   );
