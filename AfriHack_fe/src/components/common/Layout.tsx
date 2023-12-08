@@ -5,11 +5,11 @@ import Sider from "../static/Sider";
 const Layout = () => {
   return (
     <div className="w-full flex-col flex">
-      <div className="max-sm:hidden">
+      <div className="">
         <Header />
       </div>
-      <div className="flex justify-between w-full">
-        <div className="">
+      <div className="flex justify-between w-full h-screen">
+        <div className="max-sm:hidden">
           <Sider />
         </div>
         <div className="w-full bg-red-300 px-2">
