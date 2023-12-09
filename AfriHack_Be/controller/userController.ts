@@ -3,7 +3,9 @@ import { HTTP } from "../error/mainError";
 import userModel from "../model/userModel";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { Role } from "../utils/role";
+import crypto from "crypto";
+import { Role } from "../config/role";
+import { sendAccountMail } from "../utils/email";
 
 export const createUser = async (
   req: Request,
@@ -14,16 +16,21 @@ export const createUser = async (
 
     const encrypt = await bcrypt.genSalt(10);
     const decipher = await bcrypt.hash(password, encrypt);
+    const tokened = crypto.randomBytes(3).toString("hex");
 
-    const token = jwt.sign({ decipher }, "code");
+    //   const token = jwt.sign({ user }, "code");
 
     const user = await userModel.create({
       userName,
       email,
       password: decipher,
-      token,
+      token: tokened,
       role: Role.USER,
     });
+
+    sendAccountMail(user).then(() => {
+      console.log("Mail Sent ...")
+    })
 
     return res.status(HTTP.CREATE).json({
       message: "User created Successfully",
@@ -69,6 +76,39 @@ export const signInUser = async (req: Request, res: Response) => {
     return res.status(HTTP.BAD).json({
       message: "Error creating User",
       data: error.message,
+    });
+  }
+};
+
+export const verifyUser = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  try {
+    const { token } = req.params;
+
+    const getID: any = jwt.verify(token, "code", (err, payload) => {
+      if (err) {
+        return err;
+      } else {
+        return payload;
+      }
+    });
+
+    const realUser = await userModel.findByIdAndUpdate(
+      getID.id,
+      { verified: true, token: "" },
+      { new: true }
+    );
+
+    return res.status(HTTP.UPDATE).json({
+      message: "user Verified",
+      data: realUser,
+    });
+  } catch (error: any) {
+    return res.status(HTTP.BAD).json({
+      message: "Error verifying user",
+      data: error,
     });
   }
 };
