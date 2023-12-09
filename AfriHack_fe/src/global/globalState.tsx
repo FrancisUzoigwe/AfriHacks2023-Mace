@@ -4,6 +4,7 @@ const initialState = {
   toggle: false,
   user: {} || null,
   adminToggle: false,
+  buyer: false,
 };
 
 const globalState = createSlice({
@@ -22,6 +23,12 @@ const globalState = createSlice({
     logOut: (state: any) => {
       state.user = null;
     },
+    buyerToggle: (state: any) => {
+      state.buyer = true;
+    },
+    buyerChangedToggle: (state: any) => {
+      state.buyer = false;
+    },
     adminToggled: (state: any) => {
       state.adminToggle = true;
     },
@@ -38,6 +45,8 @@ export const {
   logOut,
   adminChangedToggle,
   adminToggled,
+  buyerToggle,
+  buyerChangedToggle,
 } = globalState.actions;
 
 export default globalState.reducer;

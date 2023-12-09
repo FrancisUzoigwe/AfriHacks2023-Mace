@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { adminChangedToggle, adminToggled } from "../../global/globalState";
 import { useState } from "react";
+import { IoCreate } from "react-icons/io5";
+import { CiViewColumn } from "react-icons/ci";
 
 const SellerSider = () => {
   const [toggled, setToggled] = useState<boolean>(false);
@@ -15,33 +17,47 @@ const SellerSider = () => {
   return (
     <div
       className={`${
-        !adminToggle ? "50px" : "w-[100px] "
-      } flex flex-col items-center`}
+        !adminToggle ? "w-[50px]" : "w-[100px] "
+      } flex flex-col items-center h-screen`}
     >
-      {/* <div className="font-[Zah] mt-5 flex-wrap  text-cente">Macead</div> */}
-      <div className="w-full items-center flex justify-end ">
+      <div className="fixed">
         <div
-          className=""
-          onClick={() => {
-            onToggle();
-          }}
+          className={`${
+            !adminToggle ? "w-[50px]" : "w-[100px] "
+          } flex flex-col items-center h-screen bg-[#EEEEEE]`}
         >
-          {!toggled ? (
-            <TiArrowForward
-              className="text-3xl hover:cursor-pointer transition-all duration-300 hover:scale-125"
+          <div className="w-full items-center flex justify-end ">
+            <div
+              className=""
               onClick={() => {
-                dispatch(adminToggled());
+                onToggle();
               }}
-            />
-          ) : (
-            <TiArrowForward
-              className="text-3xl hover:cursor-pointer transition-all  duration-300 hover:scale-125"
-              onClick={() => {
-                dispatch(adminChangedToggle());
-                
-              }}
-            />
-          )}
+            >
+              {!toggled ? (
+                <TiArrowForward
+                  className="text-3xl hover:cursor-pointer transition-all duration-300 hover:scale-125"
+                  onClick={() => {
+                    dispatch(adminToggled());
+                  }}
+                />
+              ) : (
+                <TiArrowForward
+                  className="text-3xl hover:cursor-pointer transition-all  duration-300 hover:scale-125"
+                  onClick={() => {
+                    dispatch(adminChangedToggle());
+                  }}
+                />
+              )}
+            </div>
+          </div>
+          <div className="mt-4 flex items-center justify-start">
+            <IoCreate className="text-3xl" />
+            {toggled && <div>Create</div>}
+          </div>
+          <div className="mt-4 flex items-center justify-start">
+            <CiViewColumn className="text-3xl" />
+            {toggled && <div>View</div>}
+          </div>
         </div>
       </div>
     </div>

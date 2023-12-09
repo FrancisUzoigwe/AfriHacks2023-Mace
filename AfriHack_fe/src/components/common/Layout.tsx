@@ -1,18 +1,22 @@
 import { Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Header from "../static/Header";
 import Sider from "../static/Sider";
 
-const Layout = () => {
+const SellerLayout = () => {
+  const buyer = useSelector((state: any) => state.buyerToggle);
   return (
     <div className="w-full flex-col flex">
       <div className="">
         <Header />
       </div>
       <div className="flex justify-between w-full h-screen">
-        <div className="max-sm:hidden">
+        <div
+          className={`${!buyer ? "50px" : "w-[100px] "} max-sm:hidden `}
+        >
           <Sider />
         </div>
-        <div className="w-full bg-red-300 px-2">
+        <div className="w-full h-[120vh] bg-red-300 px-2">
           <Outlet />
         </div>
       </div>
@@ -20,4 +24,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default SellerLayout;
