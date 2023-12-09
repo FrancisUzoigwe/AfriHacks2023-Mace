@@ -38,6 +38,7 @@ const SellerSider = () => {
               className="text-3xl hover:cursor-pointer transition-all  duration-300 hover:scale-125"
               onClick={() => {
                 dispatch(adminChangedToggle());
+                
               }}
             />
           )}
