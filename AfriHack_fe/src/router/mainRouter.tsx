@@ -7,9 +7,10 @@ import Layout from "../components/common/Layout";
 import HomeScreen from "../pages/screen/HomeScreen";
 import PrivateRoute from "./PrivateRoute";
 import AskScreen from "../pages/auth/AskScreen";
-import CreateScreen from "../pages/admin/CreateScreen";
 import SellerLayout from "../components/common/SellerLayout";
 import ViewScreen from "../pages/admin/ViewScreen";
+import LoadingScreen from "../components/private/LoadingScreen";
+import EmailScreen from "../pages/auth/EmailScreen";
 
 export const mainRouter = createBrowserRouter([
   {
@@ -45,10 +46,14 @@ export const mainRouter = createBrowserRouter([
     element: <AskScreen />,
   },
   {
+    path: "/auth/email",
+    element: <EmailScreen />,
+  },
+  {
     path: "/",
     element: (
       // <PrivateRoute>
-        <Layout />
+      <Layout />
       // </PrivateRoute>
     ),
     children: [

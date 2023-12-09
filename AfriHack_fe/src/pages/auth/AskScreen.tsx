@@ -8,7 +8,7 @@ const AskScreen = () => {
   const dispatch = useDispatch();
   return (
     <div
-      className="w-full h-full z-50 flex items-center justify-center absolute "
+      className="w-full h-full z-50 flex items-center justify-center absolute top-0 right-0"
       style={{ backdropFilter: "blur(20px)" }}
       onClick={() => {
         dispatch(changeToggle());
