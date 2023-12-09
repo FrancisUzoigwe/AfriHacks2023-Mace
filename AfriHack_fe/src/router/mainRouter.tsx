@@ -7,8 +7,20 @@ import Layout from "../components/common/Layout";
 import HomeScreen from "../pages/screen/HomeScreen";
 import PrivateRoute from "./PrivateRoute";
 import AskScreen from "../pages/auth/AskScreen";
+import CreateScreen from "../pages/admin/CreateScreen";
+import SellerLayout from "../components/common/SellerLayout";
 
 export const mainRouter = createBrowserRouter([
+  {
+    path: "/store",
+    element: <SellerLayout />,
+    children: [
+      {
+        index: true,
+        element: <CreateScreen />,
+      },
+    ],
+  },
   {
     path: "/auth",
     element: <FirstLayout />,
