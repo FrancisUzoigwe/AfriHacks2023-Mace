@@ -1,6 +1,6 @@
 import express, { Application,json } from "express";
 import { mainApp } from "./mainApp";
-import { Database } from "./utils/database";
+import { Database } from "./config/database";
 
 const port: number = 2345;
 

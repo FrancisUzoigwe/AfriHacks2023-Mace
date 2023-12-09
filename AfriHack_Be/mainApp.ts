@@ -1,4 +1,4 @@
-import express, { Application, NextFunction, Request, Response,json } from "express";
+import { Application, NextFunction, Request, Response,json } from "express";
 import cors from "cors"
 import morgan from "morgan"
 import helmet from "helmet"
@@ -9,7 +9,7 @@ import user from "./router/userRouter"
 
 export const mainApp = (app: Application) => {
     
-    app.use(express.json())
+    app.use(json())
     app.use(cors())
     
     app.use(morgan("dev"))
