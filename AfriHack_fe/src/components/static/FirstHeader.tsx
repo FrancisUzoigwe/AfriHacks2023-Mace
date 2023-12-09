@@ -24,7 +24,12 @@ const FirstHeader = () => {
               </div>
             </div>
             <div className="hidden max-md:block">
-              <AiOutlineMenu className="text-2xl hover:cursor-pointer transition-all duration-300 hover:scale-125" />
+              <AiOutlineMenu
+                className="text-2xl hover:cursor-pointer transition-all duration-300 hover:scale-125"
+                onClick={() => {
+                  dispatch(toggled());
+                }}
+              />
             </div>
           </div>
         </div>
