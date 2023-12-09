@@ -9,6 +9,7 @@ import PrivateRoute from "./PrivateRoute";
 import AskScreen from "../pages/auth/AskScreen";
 import CreateScreen from "../pages/admin/CreateScreen";
 import SellerLayout from "../components/common/SellerLayout";
+import ViewScreen from "../pages/admin/ViewScreen";
 
 export const mainRouter = createBrowserRouter([
   {
@@ -17,7 +18,7 @@ export const mainRouter = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <CreateScreen />,
+        element: <ViewScreen />,
       },
     ],
   },

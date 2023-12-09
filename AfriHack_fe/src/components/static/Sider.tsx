@@ -35,14 +35,14 @@ const Sider = () => {
             >
               {!toggled ? (
                 <TiArrowForward
-                  className="text-3xl hover:cursor-pointer transition-all duration-300 hover:scale-125"
+                  className="text-3xl hover:cursor-pointer transition-all duration-300 hover:scale-125 "
                   onClick={() => {
                     dispatch(buyerToggle());
                   }}
                 />
               ) : (
                 <TiArrowForward
-                  className="text-3xl hover:cursor-pointer transition-all  duration-300 hover:scale-125"
+                  className="text-3xl hover:cursor-pointer transition-all  duration-300 hover:scale-125 rotate-180"
                   onClick={() => {
                     dispatch(buyerChangedToggle());
                   }}
@@ -56,7 +56,7 @@ const Sider = () => {
           </div>
           <div className="mt-4 flex items-center justify-start">
             <CiViewColumn className="text-3xl" />
-            {buyer && <div>View</div>}
+            {buyer && <div className="ml-2">See All</div>}
           </div>
         </div>
       </div>
