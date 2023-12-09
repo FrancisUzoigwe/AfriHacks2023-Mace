@@ -5,6 +5,8 @@ import RegisterScreen from "../pages/auth/RegisterScreen";
 import SigninScreen from "../pages/auth/SigninScreen";
 import Layout from "../components/common/Layout";
 import HomeScreen from "../pages/screen/HomeScreen";
+import PrivateRoute from "./PrivateRoute";
+import AskScreen from "../pages/auth/AskScreen";
 
 export const mainRouter = createBrowserRouter([
   {
@@ -26,8 +28,16 @@ export const mainRouter = createBrowserRouter([
     element: <SigninScreen />,
   },
   {
+    path: "/auth/ask",
+    element: <AskScreen />,
+  },
+  {
     path: "/",
-    element: <Layout />,
+    element: (
+      <PrivateRoute>
+        <Layout />
+      </PrivateRoute>
+    ),
     children: [
       {
         index: true,

@@ -8,6 +8,7 @@ import { BiSupport } from "react-icons/bi";
 import { RiRobot2Fill } from "react-icons/ri";
 import React from "react";
 import Cards from "../../components/private/Cards";
+import { Fade } from "react-awesome-reveal";
 
 interface iOffer {
   logo?: any;
@@ -17,13 +18,19 @@ interface iOffer {
 
 const Offers: React.FC<iOffer> = ({ logo, text, subText }) => {
   return (
-    <div className="flex h-[50px] my-3 mx-2 rounded-md items-center bg-white  justify-around">
-      <div className="text-4xl">{logo}</div>
-      <div>
-        <div className="font-extrabold">{text}</div>
-        <div className="text-[12px] font-bold text-gray-400 ">{subText}</div>
-      </div>
-    </div>
+    <>
+      <Fade damping={0.5} triggerOnce={true}>
+        <div className="flex h-[50px] my-3 mx-2 rounded-md items-center bg-white  justify-around">
+          <div className="text-4xl">{logo}</div>
+          <div>
+            <div className="font-extrabold">{text}</div>
+            <div className="text-[12px] font-bold text-gray-400 ">
+              {subText}
+            </div>
+          </div>
+        </div>
+      </Fade>
+    </>
   );
 };
 
@@ -67,15 +74,14 @@ const LandingScreen = () => {
             </div>
             <div className="flex flex-col items-end max-md:hidden pr-2 ">
               <div className="font-extrabold hover:cursor-pointer ">
-                Description: 
+                Description:
               </div>
               <div>
                 <div className="text-[14px] font-semibold hover:cursor-pointer font-[Ever]">
                   * Water resistant, durable design
                 </div>
                 <div className="font-semibold text-[14px] hover:cursor-pointer font-[Ever]">
-                  * Up to 48HRs
-                   on a single charge
+                  * Up to 48HRs on a single charge
                 </div>
               </div>
             </div>
@@ -112,12 +118,16 @@ const LandingScreen = () => {
           logo={<RiRobot2Fill />}
         />
       </div>
-      <motion.div className="text-4xl font-bold mt-5 max-sm:text-3xl text-center w-[80%]">
-        Current Best Selling Products
-      </motion.div>
-      <div className="text-[14px] text-gray-400 font-bold">
-        Available for limited time
-      </div>
+      <Fade duration={1000} triggerOnce={true}>
+        <div className="text-4xl font-bold mt-5 max-sm:text-3xl text-center w-full">
+          Current Best Selling Products
+        </div>
+      </Fade>
+      <Fade duration={1000} triggerOnce={true}>
+        <div className="text-[14px] text-gray-400 font-bold">
+          Available for limited time
+        </div>
+      </Fade>
       <div className="w-full  mt-3 flex justify-center items-center">
         <div className="w-[90%] grid grid-cols-4 gap-10 max-md:grid-cols-3 max-sm:grid-cols-2 ">
           <Cards />
