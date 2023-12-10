@@ -1,4 +1,4 @@
-import { Document } from "mongoose";
+import { Document, Types } from "mongoose";
 import { Role } from "../config/role";
 
 interface iUser {
@@ -7,10 +7,18 @@ interface iUser {
   password: string;
   verified: boolean;
   token: string;
-  role: Role | string;
+  role: string;
+  store?:iStore
+}
+interface iOwner extends iUser {
+  store: iStore,
 }
 
-
+interface iStore {
+  storeName: string;
+  products: iProduct[];
+  userID: string;
+}
 interface iProduct {
   name: string;
   description: string;
@@ -20,4 +28,6 @@ interface iProduct {
 }
 
 export interface iUserData extends iUser, Document {}
+export interface iOwnerData extends iOwner, Document {}
+export interface iStoreData extends iStore, Document {}
 export interface iProductData extends iProduct, Document {}
