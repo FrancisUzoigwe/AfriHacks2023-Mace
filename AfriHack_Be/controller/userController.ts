@@ -42,44 +42,6 @@ export const createUser = async (
   }
 };
 
-export const createStoreOwner = async (
-  req: Request,
-  res: Response
-): Promise<Response> => {
-  try {
-    const { userName, email, password , storeName } = req.body;
-
-    const encrypt = await bcrypt.genSalt(10);
-    const decipher = await bcrypt.hash(password, encrypt);
-    // const tokened = crypto.randomBytes(3).toString("hex");
-    // const real = jwt.sign({ tokened }, "code");
-
-    const storeOwner = await userModel.create({
-      userName,
-      email,
-      storeName,
-      password: decipher,
-      role: Role.STOREOWNER,
-    });
-
-    const token = jwt.sign({ storeOwner }, "code");
-    // sendAccountMail(storeOwner).then(() => {
-    //   console.log("Mail Sent ...")
-    // })
-
-    return res.status(HTTP.CREATE).json({
-      message: "storeOwner created Successfully",
-      data: storeOwner,
-      token,
-    });
-  } catch (error: any) {
-    return res.status(HTTP.BAD).json({
-      message: "Error creating storeOwner",
-      data: error.message,
-    });
-  }
-};
-
 export const signInUser = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
@@ -116,42 +78,6 @@ export const signInUser = async (req: Request, res: Response) => {
   }
 };
 
-export const signInOwner = async (req: Request, res: Response) => {
-  try {
-    const { email, password } = req.body;
-
-    const user = await userModel.findOne({ email });
-
-    if (user?.role === Role.STOREOWNER) {
-      const checkPassword = await bcrypt.compare(password, user.password);
-      if (checkPassword) {
-        if (user.verified && user.token === "") {
-          return res.status(HTTP.OK).json({
-            message: " StoreOwner Sign In successfull",
-          });
-        } else {
-          return res.status(HTTP.BAD).json({
-            message: "StoreOwner is not verified",
-          });
-        }
-      } else {
-        return res.status(HTTP.BAD).json({
-          message: "Incorrect Password",
-        });
-      }
-    } else {
-      return res.status(HTTP.BAD).json({
-        message: "u re not a store owner/StoreOwner does not exist",
-      });
-    }
-  } catch (error: any) {
-    return res.status(HTTP.BAD).json({
-      message: "Error creating StoreOwner",
-      data: error.message,
-    });
-  }
-};
-
 export const verifyUser = async (
   req: Request,
   res: Response
@@ -183,41 +109,6 @@ export const verifyUser = async (
       })
     }
    
-  } catch (error: any) {
-    return res.status(HTTP.BAD).json({
-      message: "Error verifying user",
-      data: error,
-    });
-  }
-};
-
-export const verifyOwner = async (req: Request, res: Response) => {
-  try {
-    const { token } = req.params;
-
-    const getID: any = jwt.verify(token, "code", (err, payload) => {
-      if (err) {
-        return err;
-      } else {
-        return payload;
-      }
-    });
-
-    if (getID?.user?.role === Role.STOREOWNER) {
-      const realUser = await userModel.findByIdAndUpdate(
-        getID?.user?._id,
-        { verified: true, token: "" },
-        { new: true }
-      );
-      return res.status(HTTP.UPDATE).json({
-        message: "user Verified",
-        data: realUser,
-      });
-    } else {
-      return res.status(HTTP.BAD).json({
-        message: "token Invalid / User does not exist",
-      });
-    }
   } catch (error: any) {
     return res.status(HTTP.BAD).json({
       message: "Error verifying user",
