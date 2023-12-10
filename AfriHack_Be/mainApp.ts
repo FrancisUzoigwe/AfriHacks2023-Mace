@@ -5,6 +5,7 @@ import helmet from "helmet"
 import { HTTP, mainError } from "./error/mainError";
 import { errorHandler } from "./error/errorHandler";
 import user from "./router/userRouter"
+import owner from "./router/ownerRouter"
 
 
 export const mainApp = (app: Application) => {
@@ -16,6 +17,7 @@ export const mainApp = (app: Application) => {
     app.use(helmet())
 
     app.use("/api", user)
+    app.use("/api", owner)
     
     app.use("/", (req: Request, res: Response) => {
         try {
