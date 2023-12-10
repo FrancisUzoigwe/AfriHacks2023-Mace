@@ -119,6 +119,7 @@ const Register = () => {
             <button
               className="bg-green-600 w-[95%] h-[40px] rounded-[20px] text-black text-[20px] font-semibold"
               type="submit"
+              
             >
               Register
             </button>
