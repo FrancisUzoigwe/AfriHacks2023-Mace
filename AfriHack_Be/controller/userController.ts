@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import { Role } from "../config/role";
-import { sendAccountMail } from "../utils/email";
+// import { sendAccountMail } from "../utils/email";
 
 export const createUser = async (
   req: Request,
@@ -16,15 +16,11 @@ export const createUser = async (
 
     const encrypt = await bcrypt.genSalt(10);
     const decipher = await bcrypt.hash(password, encrypt);
-    const tokened = crypto.randomBytes(3).toString("hex");
-    const real = jwt.sign({tokened}, "code")
-
     
     const user = await userModel.create({
       userName,
       email,
       password: decipher,
-      token: real,
       role:Role.USER,
     });
     
@@ -36,7 +32,7 @@ export const createUser = async (
     return res.status(HTTP.CREATE).json({
       message: "User created Successfully",
       data: user,
-      token
+      token,
     });
   } catch (error: any) {
     return res.status(HTTP.BAD).json({
@@ -51,18 +47,18 @@ export const createStoreOwner = async (
   res: Response
 ): Promise<Response> => {
   try {
-    const { userName, email, password } = req.body;
+    const { userName, email, password , storeName } = req.body;
 
     const encrypt = await bcrypt.genSalt(10);
     const decipher = await bcrypt.hash(password, encrypt);
-    const tokened = crypto.randomBytes(3).toString("hex");
-    const real = jwt.sign({ tokened }, "code");
+    // const tokened = crypto.randomBytes(3).toString("hex");
+    // const real = jwt.sign({ tokened }, "code");
 
     const storeOwner = await userModel.create({
       userName,
       email,
+      storeName,
       password: decipher,
-      token: real,
       role: Role.STOREOWNER,
     });
 
@@ -145,7 +141,7 @@ export const signInOwner = async (req: Request, res: Response) => {
       }
     } else {
       return res.status(HTTP.BAD).json({
-        message: "StoreOwner does not exist",
+        message: "u re not a store owner/StoreOwner does not exist",
       });
     }
   } catch (error: any) {
@@ -159,7 +155,7 @@ export const signInOwner = async (req: Request, res: Response) => {
 export const verifyUser = async (
   req: Request,
   res: Response
-): Promise<Response> => {
+) => {
   try {
     const { token } = req.params;
 
@@ -171,17 +167,57 @@ export const verifyUser = async (
       }
     });
 
-
-    const realUser = await userModel.findByIdAndUpdate(
-      getID?.user?._id,
-      { verified: true, token: "" },
-      { new: true }
-    );
-
-    return res.status(HTTP.UPDATE).json({
-      message: "user Verified",
-      data: realUser,
+    if (getID?.user?.role === Role.USER) {
+      const realUser = await userModel.findByIdAndUpdate(
+        getID?.user?._id,
+        { verified: true, token: "" },
+        { new: true }
+      );
+       return res.status(HTTP.UPDATE).json({
+         message: "user Verified",
+         data: realUser,
+       });
+    } else {
+      return res.status(HTTP.BAD).json({
+        message:"token Invalid / User does not exist"
+      })
+    }
+   
+  } catch (error: any) {
+    return res.status(HTTP.BAD).json({
+      message: "Error verifying user",
+      data: error,
     });
+  }
+};
+
+export const verifyOwner = async (req: Request, res: Response) => {
+  try {
+    const { token } = req.params;
+
+    const getID: any = jwt.verify(token, "code", (err, payload) => {
+      if (err) {
+        return err;
+      } else {
+        return payload;
+      }
+    });
+
+    if (getID?.user?.role === Role.STOREOWNER) {
+      const realUser = await userModel.findByIdAndUpdate(
+        getID?.user?._id,
+        { verified: true, token: "" },
+        { new: true }
+      );
+      return res.status(HTTP.UPDATE).json({
+        message: "user Verified",
+        data: realUser,
+      });
+    } else {
+      return res.status(HTTP.BAD).json({
+        message: "token Invalid / User does not exist",
+      });
+    }
   } catch (error: any) {
     return res.status(HTTP.BAD).json({
       message: "Error verifying user",

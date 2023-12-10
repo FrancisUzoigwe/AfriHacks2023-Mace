@@ -1,4 +1,4 @@
-export enum Role {
-    USER,
-    STOREOWNER
-}
+    export enum Role {
+        USER = "user",
+        STOREOWNER = "storeOwner"
+    }
