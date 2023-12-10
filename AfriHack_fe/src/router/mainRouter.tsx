@@ -4,8 +4,25 @@ import LandingScreen from "../pages/auth/LandingScreen";
 import RegisterScreen from "../pages/auth/RegisterScreen";
 import SigninScreen from "../pages/auth/SigninScreen";
 import Layout from "../components/common/Layout";
+import HomeScreen from "../pages/screen/HomeScreen";
+import PrivateRoute from "./PrivateRoute";
+import AskScreen from "../pages/auth/AskScreen";
+import SellerLayout from "../components/common/SellerLayout";
+import ViewScreen from "../pages/admin/ViewScreen";
+import LoadingScreen from "../components/private/LoadingScreen";
+import EmailScreen from "../pages/auth/EmailScreen";
 
 export const mainRouter = createBrowserRouter([
+  {
+    path: "/store",
+    element: <SellerLayout />,
+    children: [
+      {
+        index: true,
+        element: <ViewScreen />,
+      },
+    ],
+  },
   {
     path: "/auth",
     element: <FirstLayout />,
@@ -25,12 +42,24 @@ export const mainRouter = createBrowserRouter([
     element: <SigninScreen />,
   },
   {
+    path: "/auth/ask",
+    element: <AskScreen />,
+  },
+  {
+    path: "/auth/email",
+    element: <EmailScreen />,
+  },
+  {
     path: "/",
-    element: <Layout />,
+    element: (
+      // <PrivateRoute>
+      <Layout />
+      // </PrivateRoute>
+    ),
     children: [
       {
         index: true,
-        element: <LandingScreen />,
+        element: <HomeScreen />,
       },
     ],
   },

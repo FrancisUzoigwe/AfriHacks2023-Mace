@@ -1,7 +1,7 @@
 
 const Footer = () => {
   return (
-    <div className="w-full h-[100vh]">Footer</div>
+    <div className="w-full h-[10px]">Footer</div>
   )
 }
 
