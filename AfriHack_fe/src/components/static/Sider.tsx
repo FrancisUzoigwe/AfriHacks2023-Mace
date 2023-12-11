@@ -4,7 +4,8 @@ import { useDispatch } from "react-redux";
 import { buyerChangedToggle, buyerToggle } from "../../global/globalState";
 import { useState } from "react";
 import { FiShoppingBag } from "react-icons/fi";
-import { CiViewColumn } from "react-icons/ci";
+import { TiShoppingCart } from "react-icons/ti";
+import { Link } from "react-router-dom";
 
 const Sider = () => {
   const [toggled, setToggled] = useState<boolean>(false);
@@ -50,14 +51,18 @@ const Sider = () => {
               )}
             </div>
           </div>
-          <div className="mt-4 flex items-center justify-start">
-            <FiShoppingBag className="text-2xl" />
-            {buyer && <div>Products</div>}
-          </div>
-          <div className="mt-4 flex items-center justify-start">
-            <CiViewColumn className="text-3xl" />
-            {buyer && <div className="ml-2">See All</div>}
-          </div>
+          <Link to="/">
+            <div className="mt-4 flex items-center justify-start">
+              <FiShoppingBag className="text-2xl" />
+              {buyer && <div>Products</div>}
+            </div>
+          </Link>
+          <Link to="/check">
+            <div className="mt-10 flex items-center justify-start">
+              <TiShoppingCart className="text-3xl" />
+              {buyer && <div className="">See Cart</div>}
+            </div>
+          </Link>
         </div>
       </div>
     </div>

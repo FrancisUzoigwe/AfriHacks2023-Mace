@@ -10,6 +10,7 @@ import { useState } from "react";
 import { IoCreate } from "react-icons/io5";
 import { CiViewColumn } from "react-icons/ci";
 import CreateScreen from "../../pages/admin/CreateScreen";
+import { Link } from "react-router-dom";
 
 const SellerSider = () => {
   const create = useSelector((state: any) => state.create);
@@ -58,19 +59,21 @@ const SellerSider = () => {
                 )}
               </div>
             </div>
-            <div className="mt-4 flex items-center justify-start">
-              <IoCreate
-                className="text-3xl"
-                onClick={() => {
-                  dispatch(createToggle());
-                }}
-              />
-              {toggled && <div>Create</div>}
+            <div
+              className="mt-4 flex items-center justify-start hover:cursor-pointer"
+              onClick={() => {
+                dispatch(createToggle());
+              }}
+            >
+              <IoCreate className="text-3xl" />
+              {toggled && <div className="hover:cursor-pointer">Create</div>}
             </div>
-            <div className="mt-4 flex items-center justify-start">
+           <Link to="/store">
+           <div className="mt-10 flex items-center justify-start">
               <CiViewColumn className="text-3xl" />
               {toggled && <div className="ml-2">View</div>}
             </div>
+           </Link>
           </div>
         </div>
       </div>
