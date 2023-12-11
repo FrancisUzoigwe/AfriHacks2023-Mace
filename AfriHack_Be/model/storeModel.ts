@@ -7,9 +7,9 @@ const storeModel = new Schema<iStoreData>(
       type: String,
     },
     userID: {
-      type: String,
+      type:String
     },
-    products: [
+    product: [
       {
         type: Types.ObjectId,
         ref: "products",
