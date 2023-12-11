@@ -14,14 +14,20 @@ export const createStore = async (req: Request, res: Response) => {
       if (user.verified && user.token === "") {
         const isStoreOwner = user?.role === "storeOwner";
         if (isStoreOwner) {
-          const store = await storeModel.create({
-            storeName,
-          });
-          return res.status(HTTP.CREATE).json({
-            message: "Store created",
-            data: store,
-          });
-        } else {
+          const existingStore = await storeModel.findOne({ owner: user._id });
+          if (existingStore) {
+            const store = await storeModel.create({
+              storeName,
+            });
+            return res.status(HTTP.CREATE).json({
+              message: "Store Created",
+              data: store,
+            });
+          } else {
+            return res.status(HTTP.BAD).json({
+              message: "Store owner can only have one store.",
+            });
+          }
         }
       } else {
         return res.status(HTTP.BAD).json({
@@ -42,29 +48,29 @@ export const createStore = async (req: Request, res: Response) => {
 };
 
 export const findOwnerStore = async (req: Request, res: Response) => {
-    try {
-      const {userID} = req.params
+  try {
+    const { userID } = req.params;
     const { storeID } = req.params;
 
-        const isStoreOwner = await ownerModel.findById(userID);
-        
-        if (isStoreOwner?.role === "storeOwner") {
-            const store:any = await storeModel.findById(storeID)
-            if (store) {
-              return res.status(HTTP.OK).json({
-                message: `you are viewing ${isStoreOwner.userName} stores`,
-                data:store
-            })  
-            } else {
-              return res.status(HTTP.BAD).json({
-                message: "store does not exist",
-              });  
-            }
-        } else {
-            return res.status(HTTP.BAD).json({
-                message: "you are not a store owner to view this",
-            })
-        }
+    const isStoreOwner = await ownerModel.findById(userID);
+
+    if (isStoreOwner?.role === "storeOwner") {
+      const store: any = await storeModel.findById(storeID);
+      if (store) {
+        return res.status(HTTP.OK).json({
+          message: `you are viewing ${isStoreOwner.userName} stores`,
+          data: store,
+        });
+      } else {
+        return res.status(HTTP.BAD).json({
+          message: "store does not exist",
+        });
+      }
+    } else {
+      return res.status(HTTP.BAD).json({
+        message: "you are not a store owner to view this",
+      });
+    }
   } catch (error: any) {
     return res.status(HTTP.BAD).json({
       message: "Error finding store",

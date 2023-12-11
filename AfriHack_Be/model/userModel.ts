@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 import { iUserData } from "../utils/interface";
 
 
@@ -26,7 +26,11 @@ const userModel = new Schema<iUserData>({
     },
     role: {
         type: String,
-    }
+    },
+    store: [{
+        type: Types.ObjectId,
+        ref:"stores"
+    }]
 }, {
     timestamps:true
 })

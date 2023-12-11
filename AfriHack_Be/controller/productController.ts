@@ -3,35 +3,40 @@ import { HTTP } from "../error/mainError";
 import productModel from "../model/productModel";
 import { streamUpload } from "../utils/streamifier";
 import ownerModel from "../model/ownerModel";
+import mongoose, { Types } from "mongoose";
 
-export const createProduct = async (
-  req: Request,
-  res: Response
-): Promise<Response> => {
-    try {
-        const { userID } = req.body;
+export const createProduct = async (req: any, res: any): Promise<Response> => {
+  try {
+    const { userID } = req.params;
     const { name, description, price } = req.body;
 
-        const findUser = await ownerModel.findById(userID)
-        
-    let image = await streamUpload(req)
+    const findUser = await ownerModel.findById(userID);
 
-      if (findUser?.role === "storeOwner") {
-        const product = await productModel.create({
-          name,
-          description,
-          price,
-          image: image.secure_url!,
-        });
-          return res.status(HTTP.CREATE).json({
-              messsage: "Product Created",
-              data:product
-          });
-      } else {
-          return res.status(HTTP.BAD).json({
-            messsage:"You don't have the right to create Product"
-        })
-      }
+    let image = await streamUpload(req);
+
+    if (findUser?.role === "storeOwner") {
+      const products: any = await productModel.create({
+        name,
+        description,
+        price,
+        image: image.secure_url!,
+        imageID: image.public_id!,
+      });
+
+      console.log(findUser.store)
+
+      findUser!.store!.push(products.id)
+      await findUser?.save()
+
+      return res.status(HTTP.CREATE).json({
+        messsage: "Product Created",
+        data: products,
+      });
+    } else {
+      return res.status(HTTP.BAD).json({
+        messsage: "You don't have the right to create Product",
+      });
+    }
   } catch (error: any) {
     return res.status(HTTP.BAD).json({
       message: "Error creating product",
@@ -39,4 +44,19 @@ export const createProduct = async (
   }
 };
 
-// export const deleteProduct = async
+export const deleteProduct = async (req: Request, res: Response) => {
+  try {
+    const { productID } = req.params;
+
+    await productModel.findByIdAndDelete(productID);
+
+    return res.status(HTTP.DELETE).json({
+      message: "Product Deleted",
+    });
+  } catch (error: any) {
+    return res.status(HTTP.BAD).json({
+      message: "Error deleting product",
+      data: error.message,
+    });
+  }
+};

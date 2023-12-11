@@ -7,6 +7,7 @@ import { errorHandler } from "./error/errorHandler";
 import user from "./router/userRouter"
 import owner from "./router/ownerRouter"
 import store from "./router/storeRouter"
+import product from "./router/productRouter"
 
 
 export const mainApp = (app: Application) => {
@@ -20,6 +21,7 @@ export const mainApp = (app: Application) => {
     app.use("/api", user)
     app.use("/api", owner)
     app.use("/api", store)
+    app.use("/api", product);
     
     app.use("/", (req: Request, res: Response) => {
         try {

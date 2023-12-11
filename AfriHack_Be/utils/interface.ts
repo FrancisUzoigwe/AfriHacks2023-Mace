@@ -7,15 +7,15 @@ interface iUser {
   verified: boolean;
   token: string;
   role: string;
-  store:[]
+  store?:iStore[]
 }
 interface iOwner extends iUser {
-  store: [],
+  store: iStore[],
 }
 
 interface iStore {
   storeName: string;
-  products: iProduct[];
+  product: iProduct[];
   userID: string;
 }
 interface iProduct {
