@@ -9,7 +9,6 @@ import PrivateRoute from "./PrivateRoute";
 import AskScreen from "../pages/auth/AskScreen";
 import SellerLayout from "../components/common/SellerLayout";
 import ViewScreen from "../pages/admin/ViewScreen";
-import LoadingScreen from "../components/private/LoadingScreen";
 import EmailScreen from "../pages/auth/EmailScreen";
 
 export const mainRouter = createBrowserRouter([
