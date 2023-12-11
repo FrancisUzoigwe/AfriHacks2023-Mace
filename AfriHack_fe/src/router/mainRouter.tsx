@@ -52,7 +52,7 @@ export const mainRouter = createBrowserRouter([
   {
     path: "/",
     element: (
-      <PrivateRoute>
+      // <PrivateRoute>
       <Layout />
       // </PrivateRoute>
     ),
