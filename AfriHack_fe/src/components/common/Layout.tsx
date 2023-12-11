@@ -12,11 +12,11 @@ const SellerLayout = () => {
       </div>
       <div className="flex justify-between w-full h-screen">
         <div
-          className={`${!buyer ? "50px" : "w-[100px] "} max-sm:hidden `}
+          className={`${!buyer ? "50px" : "w-[100px] "} max-md:hidden `}
         >
           <Sider />
         </div>
-        <div className="w-full h-[120vh] bg-red-300 px-2">
+        <div className="w-full h-full px-2  bg-[#EEEEEE]">
           <Outlet />
         </div>
       </div>

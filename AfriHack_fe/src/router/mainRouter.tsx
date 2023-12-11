@@ -10,6 +10,7 @@ import AskScreen from "../pages/auth/AskScreen";
 import SellerLayout from "../components/common/SellerLayout";
 import ViewScreen from "../pages/admin/ViewScreen";
 import EmailScreen from "../pages/auth/EmailScreen";
+import CheckoutScreen from "../pages/screen/CheckoutScreen";
 
 export const mainRouter = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ export const mainRouter = createBrowserRouter([
       {
         index: true,
         element: <HomeScreen />,
+      },
+      {
+        path: "/check",
+        element: <CheckoutScreen />,
       },
     ],
   },
