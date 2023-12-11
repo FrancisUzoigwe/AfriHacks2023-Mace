@@ -1,14 +1,16 @@
-import express, { Application,json } from "express";
+import express, { Application } from "express";
 import { mainApp } from "./mainApp";
 import { Database } from "./config/database";
+import env from "dotenv"
+env.config()
 
-const port: number = 2345;
+const port:number = parseInt(process.env.PORT!);
 
 const app: Application = express();
 
 mainApp(app)
 
-const server = app.listen(port,() => {
+const server = app.listen(process.env.PORT || port, () => {
 console.log()
 Database()
 })

@@ -5,6 +5,10 @@ import { Role } from "../config/role";
 import jwt from "jsonwebtoken"
 import ownerModel from "../model/ownerModel";
 import { iOwnerData } from "../utils/interface";
+import crypto from "crypto"
+import env from "dotenv";
+env.config();
+
 
 
 export const createStoreOwner = async (
@@ -12,22 +16,21 @@ export const createStoreOwner = async (
   res: Response
 ): Promise<Response> => {
   try {
-    const { userName, email, password, storeName } = req.body;
+    const { userName, email, password } = req.body;
 
     const encrypt = await bcrypt.genSalt(10);
     const decipher = await bcrypt.hash(password, encrypt);
-    // const tokened = crypto.randomBytes(3).toString("hex");
-    // const real = jwt.sign({ tokened }, "code");
+    const token = crypto.randomBytes(2).toString("hex");
 
     const storeOwner = await ownerModel.create({
       userName,
       email,
-      storeName,
+      token,
       password: decipher,
       role: Role.STOREOWNER,
     });
 
-    const token = jwt.sign({ storeOwner }, "code");
+    const jwtToken = jwt.sign({ storeOwner }, process.env.SECRET_KEY!);
     // sendAccountMail(storeOwner).then(() => {
     //   console.log("Mail Sent ...")
     // })
@@ -35,7 +38,7 @@ export const createStoreOwner = async (
     return res.status(HTTP.CREATE).json({
       message: "storeOwner created Successfully",
       data: storeOwner,
-      token,
+      jwtToken,
     });
   } catch (error: any) {
     return res.status(HTTP.BAD).json({
@@ -93,9 +96,9 @@ export const verifyOwner = async (req: Request, res: Response) => {
       }
     });
 
-    if (getID?.user?.role === Role.STOREOWNER) {
+    if (getID) {
       const realUser = await ownerModel.findByIdAndUpdate(
-        getID?.user?._id,
+        getID?.storeOwner?._id,
         { verified: true, token: "" },
         { new: true }
       );
@@ -105,9 +108,10 @@ export const verifyOwner = async (req: Request, res: Response) => {
       });
     } else {
       return res.status(HTTP.BAD).json({
-        message: "token Invalid / owner does not exist",
+        message: "token Invalid / storeOwner does not exist",
       });
     }
+
   } catch (error: any) {
     return res.status(HTTP.BAD).json({
       message: "Error verifying owner",
@@ -138,11 +142,12 @@ export const deleteOwner = async (
 
 export const findAllOwner = async (req: Request, res: Response):Promise<Response> => {
   try {
-    const findAllOwners = await ownerModel.find({}, { _id : 1}) as iOwnerData[];
+    // const findAllOwners = await ownerModel.find({}, { _id : 1}) as iOwnerData[];
+    const findAllOwners = await ownerModel.find() ;
 
     return res.status(HTTP.OK).json({
       message: "All Owners Successfully found",
-      data: findAllOwners.map((user) => user?._id),
+      data: findAllOwners,
     });
   } catch (error: any) {
     return res.status(HTTP.BAD).json({
