@@ -1,3 +1,4 @@
+import { sendAccountMail } from './../utils/email';
 import { Request, Response } from "express";
 import { HTTP } from "../error/mainError";
 import userModel from "../model/userModel";
@@ -5,6 +6,9 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import { Role } from "../config/role";
+import env from "dotenv"
+env.config()
+
 // import { sendAccountMail } from "../utils/email";
 
 export const createUser = async (
@@ -16,15 +20,17 @@ export const createUser = async (
 
     const encrypt = await bcrypt.genSalt(10);
     const decipher = await bcrypt.hash(password, encrypt);
-    
+    const token = crypto.randomBytes(2).toString("hex");
+
     const user = await userModel.create({
       userName,
       email,
+      token,
       password: decipher,
-      role:Role.USER,
+      role: Role.USER,
     });
     
-      const token = jwt.sign( {user} , "code");
+    const jwtToken = jwt.sign( {user} , process.env.SECRET_KEY!);
     // sendAccountMail(user).then(() => {
     //   console.log("Mail Sent ...")
     // })
@@ -32,7 +38,7 @@ export const createUser = async (
     return res.status(HTTP.CREATE).json({
       message: "User created Successfully",
       data: user,
-      token,
+      jwtToken,
     });
   } catch (error: any) {
     return res.status(HTTP.BAD).json({
@@ -48,7 +54,7 @@ export const signInUser = async (req: Request, res: Response) => {
 
     const user = await userModel.findOne({ email });
 
-    if (user?.role === Role.USER) {
+    if (user) {
       const checkPassword = await bcrypt.compare(password, user.password);
       if (checkPassword) {
         if (user.verified && user.token === "") {
@@ -93,11 +99,12 @@ export const verifyUser = async (
       }
     });
 
-    if (getID?.user?.role === Role.USER) {
-      const realUser = await userModel.findByIdAndUpdate(
-        getID?.user?._id,
-        { verified: true, token: "" },
-        { new: true }
+    
+    if (getID) {
+        const realUser = await userModel.findByIdAndUpdate(
+            getID?.user?._id,
+            { verified: true, token: "" },
+            { new: true }
       );
        return res.status(HTTP.UPDATE).json({
          message: "user Verified",
@@ -107,8 +114,7 @@ export const verifyUser = async (
       return res.status(HTTP.BAD).json({
         message:"token Invalid / User does not exist"
       })
-    }
-   
+    }  
   } catch (error: any) {
     return res.status(HTTP.BAD).json({
       message: "Error verifying user",

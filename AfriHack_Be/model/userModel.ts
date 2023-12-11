@@ -23,6 +23,9 @@ const userModel = new Schema<iUserData>({
     },
     token: {
         type: String,
+    },
+    role: {
+        type: String,
     }
 }, {
     timestamps:true
