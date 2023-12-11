@@ -3,7 +3,6 @@ import { HTTP } from "../error/mainError";
 import productModel from "../model/productModel";
 import { streamUpload } from "../utils/streamifier";
 import ownerModel from "../model/ownerModel";
-import mongoose, { Types } from "mongoose";
 
 export const createProduct = async (req: any, res: any): Promise<Response> => {
   try {
@@ -23,10 +22,8 @@ export const createProduct = async (req: any, res: any): Promise<Response> => {
         imageID: image.public_id!,
       });
 
-      console.log(findUser.store)
-
-      findUser!.store!.push(products.id)
-      await findUser?.save()
+      findUser!.store!.push(products.id);
+      await findUser?.save();
 
       return res.status(HTTP.CREATE).json({
         messsage: "Product Created",

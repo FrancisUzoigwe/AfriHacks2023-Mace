@@ -10,7 +10,6 @@ import env from "dotenv";
 env.config();
 
 
-
 export const createStoreOwner = async (
   req: Request,
   res: Response
