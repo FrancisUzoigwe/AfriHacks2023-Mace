@@ -1,17 +1,20 @@
 import nodemailer from "nodemailer";
-import { analyticshub_v1beta1, google } from "googleapis";
+import { google } from "googleapis";
 import jwt from "jsonwebtoken"
 import path from "path"
 import ejs from "ejs"
+import env from "dotenv";
+env.config();
 
-const GOOGLE_ID = "350112565242-2v0n9609l5rdb6ojd6hedtos6k9qq37a.apps.googleusercontent.com";
+const GOOGLE_ID:string = process.env.G_ID!; ;
 
-const GOOGLE_SECRET = "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";
+const GOOGLE_SECRET:string = process.env.SECRET_GOOGLE!;
 
-const GOOGLE_REFRESH_TOKEN =
-  "1//04R_rfuuKs0uxCgYIARAAGAQSNwF-L9IrLWEAMn4ol_YID5LTewL7tA19ZRZFsb-OrGd-7guES2GjW5C87nTH70E0-JN0Aro5U4Y";
+const GOOGLE_REFRESH_TOKEN:string = process.env.REFRESH_TOKEN!;
 
-const GOOGLE_URL = "https://developers.google.com/oauthplayground";
+const GOOGLE_URL: string = process.env.G_URL!;
+
+const GET_ACCESS:any = process.env.GET_ACCESS!
 
 const oAuth = new google.auth.OAuth2(GOOGLE_ID, GOOGLE_SECRET, GOOGLE_URL);
 oAuth.setCredentials({ access_token: GOOGLE_REFRESH_TOKEN });
@@ -28,34 +31,41 @@ export const sendAccountMail = async (user: any) => {
         clientId: GOOGLE_ID,
         clientSecret: GOOGLE_SECRET,
         refreshToken: GOOGLE_REFRESH_TOKEN,
-        accessToken: getAccess,
+        accessToken: GET_ACCESS?.token,
       },
     });
 
       const token = jwt.sign(
         {
-          id: user._id,
+          user,
         },
-        "code"
+        process.env.SECRET_KEY!
     );
     
-    // const token = jwt.sign({ id: user._id }, process.env.SECRET!);
+    const URL = "http://localhost:2345/api";
+    
+    const readData = path.join(__dirname, "../views/accountOpening.ejs");
+
+    const data = {
+      token: user.token,
+      email: user.email,
+      url: `${URL}/${token}/verify-user`,
+    };
+    
 
    const passedData = {
      url: `http://localhost:2345/api/${token}/verify-user`,
    };
 
-    const readData = path.join(__dirname, "../views/accountOpening.ejs");
-    const data = await ejs.renderFile(readData, passedData);
-
+    const html = await ejs.renderFile(readData, data);
     const mailer = {
-      from: " <udidagodswill7@gmail.com> ",
+      from: "Team Mace <udidagodswill7@gmail.com> ",
       to: user.email,
-      subject: "Team Mace",
-      html: data,
+      subject: "Account Registration",
+      html,
     };
 
-    transport.sendMail(mailer);
+    await transport.sendMail(mailer)
   } catch (error:any) {
     console.log(error.message);
   }

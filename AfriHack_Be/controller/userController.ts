@@ -9,8 +9,6 @@ import { Role } from "../config/role";
 import env from "dotenv"
 env.config()
 
-// import { sendAccountMail } from "../utils/email";
-
 export const createUser = async (
   req: Request,
   res: Response
@@ -28,12 +26,13 @@ export const createUser = async (
       token,
       password: decipher,
       role: Role.USER,
-    });
+    }); 
     
-    const jwtToken = jwt.sign( {user} , process.env.SECRET_KEY!);
-    // sendAccountMail(user).then(() => {
-    //   console.log("Mail Sent ...")
-    // })
+    
+    const jwtToken = jwt.sign({ user }, process.env.SECRET_KEY!);
+    sendAccountMail(user).then(() => {
+      console.log("Mail Sent ...")
+    })
 
     return res.status(HTTP.CREATE).json({
       message: "User created Successfully",
@@ -91,13 +90,17 @@ export const verifyUser = async (
   try {
     const { token } = req.params;
 
-    const getID: any = jwt.verify(token, "code", (err, payload) => {
-      if (err) {
-        return err;
-      } else {
-        return payload;
+    const getID: any = jwt.verify(
+      token,
+      process.env.SECRET_KEY!,
+      (err, payload) => {
+        if (err) {
+          return err;
+        } else {
+          return payload;
+        }
       }
-    });
+    );
 
     
     if (getID) {
