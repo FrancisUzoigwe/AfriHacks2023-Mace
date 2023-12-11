@@ -1,5 +1,4 @@
 import { Document, Types } from "mongoose";
-import { Role } from "../config/role";
 
 interface iUser {
   userName: string;
@@ -8,10 +7,10 @@ interface iUser {
   verified: boolean;
   token: string;
   role: string;
-  store?:iStore
+  store:[]
 }
 interface iOwner extends iUser {
-  store: iStore,
+  store: [],
 }
 
 interface iStore {

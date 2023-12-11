@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { google } from "googleapis";
+import { analyticshub_v1beta1, google } from "googleapis";
 import jwt from "jsonwebtoken"
 import path from "path"
 import ejs from "ejs"
@@ -37,11 +37,13 @@ export const sendAccountMail = async (user: any) => {
           id: user._id,
         },
         "code"
-      );
+    );
+    
+    // const token = jwt.sign({ id: user._id }, process.env.SECRET!);
 
-    const passedData = {
-      url: `http://localhost:5173/api/${token}/verify-user`,
-    };
+   const passedData = {
+     url: `http://localhost:2345/api/${token}/verify-user`,
+   };
 
     const readData = path.join(__dirname, "../views/accountOpening.ejs");
     const data = await ejs.renderFile(readData, passedData);
@@ -49,12 +51,12 @@ export const sendAccountMail = async (user: any) => {
     const mailer = {
       from: " <udidagodswill7@gmail.com> ",
       to: user.email,
-      subject: " Team Mace",
+      subject: "Team Mace",
       html: data,
     };
 
     transport.sendMail(mailer);
-  } catch (error) {
-    console.log(error);
+  } catch (error:any) {
+    console.log(error.message);
   }
 };
