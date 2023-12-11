@@ -10,3 +10,14 @@ export const registerApi = async (data: any) => {
     console.log(error?.message);
   }
 };
+
+
+
+export const signinApi = async (data: any) => {
+  try {
+    // return axios.post(`${URL}/`)
+  } catch (error: any) {
+    console.log(error?.message);
+    
+  }
+}

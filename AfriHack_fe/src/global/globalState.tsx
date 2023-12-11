@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   toggle: false,
+  cart: [] as any,
   user: {} || null,
   adminToggle: false,
   buyer: false,
@@ -42,6 +43,31 @@ const globalState = createSlice({
     createChangedToggle: (state: any) => {
       state.create = false;
     },
+    addToCart: (state: any, { payload }) => {
+      let check = state.cart.findIndex((el: any) => el._id === payload._id);
+
+      if (check >= 0) {
+        state.cart[check].QTY += 1;
+      } else {
+        const data = {
+          ...payload,
+          QTY: 1,
+        };
+        state.cart.push(data);
+      }
+    },
+
+    removeFromCart: (state: any) => {
+      state.cart = [];
+    },
+
+    removeQTYfromCart: (state: any, { payload }) => {
+      let check = state.cart.findIndex((el: any) => el._id !== payload._id);
+
+      if (state.cart[check].QTY === 1) {
+        state.cart = state.cart.filter((el: any) => el._id !== payload._id);
+      }
+    },
   },
 });
 
@@ -56,6 +82,9 @@ export const {
   buyerChangedToggle,
   createChangedToggle,
   createToggle,
+  addToCart,
+  removeFromCart,
+  removeQTYfromCart,
 } = globalState.actions;
 
 export default globalState.reducer;

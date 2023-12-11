@@ -24,9 +24,6 @@ const HomeScreen = () => {
       <Products />
       <Products />
       <Products />
-      <Products />
-      <Products />
-      <Products />
     </div>
   );
 };
