@@ -62,3 +62,4 @@ export const sendAccountMail = async (user: any) => {
     console.log(error.message);
   }
 };
+
