@@ -39,25 +39,34 @@ export const sendAccountMail = async (user: any) => {
     const token = jwt.sign(
       {
         id: user._id,
+        userToken: user.token
       },
       process.env.SECRET_KEY!
     );
 
-    const URL = "http://localhost:2345/api";
+    // const URL = "http://localhost:2345/api";
 
     const readData = path.join(__dirname, "../views/accountOpening.ejs");
 
-    const data = {
+    // const data = {
+    //   name: user.userName,
+    //   token: user.token,
+    //   email: user.email,
+    //   url2: `${URL}/${token}/verify-user`,
+    //   url: `http://localhost:5173/api/${token}/verify-user`,
+    // };
+
+    // const passedData = {
+    //   url: `http://localhost:2345/api/${token}/verify-user`,
+    // };
+
+    const html = await ejs.renderFile(readData, {
+      name: user.userName,
       token: user.token,
       email: user.email,
-      url: `${URL}/${token}/verify-user`,
-    };
-
-    const passedData = {
-      url: `http://localhost:2345/api/${token}/verify-user`,
-    };
-
-    const html = await ejs.renderFile(readData, passedData);
+      url2: `${URL}/${token}/verify-user`,
+      url: `http://localhost:5173/api/${token}/verify-user`,
+    });
     const mailer = {
       from: "Team Mace <kossyuzoigwe@gmail.com> ",
       to: user.email,
