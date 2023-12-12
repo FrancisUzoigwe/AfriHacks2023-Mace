@@ -7,12 +7,13 @@ import {
   removeQTYfromCart,
 } from "../../global/globalState";
 import { useState } from "react";
+import { getApproved } from "../../apis/approvedAPI";
 
 const CheckoutScreen = () => {
   const cart = useSelector((state: any) => state.cart);
 
   const [approved, setApproved] = useState<boolean>(false);
-
+const [state, setState]:any = useState()
   const dispatch = useDispatch();
   return (
     <>
@@ -95,11 +96,19 @@ const CheckoutScreen = () => {
               </div>
             </div>
 
-            <button className="bg-black text-white w-full mt-4 h-12 rounded-md duration-300 transition-all hover:scale-[1.004] ">
+            <button className="bg-black text-white w-full mt-4 h-12 rounded-md duration-300 transition-all hover:scale-[1.004] "
+            onClick={() => {
+              getApproved().then((res:any) =>{
+                setState(res.data.data.data)
+              })
+            }}
+            >
               Checkout
             </button>
 
-            {approved ? (
+            {
+              state && <div>
+                {state.state === "APPROVE" ? (
               <div className="flex flex-col items-center mt-3">
                 <button className="bg-green-400 text-white w-full mt-4 h-12 rounded-md duration-300 transition-all hover:scale-[1.004] ">
                   Continue
@@ -118,6 +127,8 @@ const CheckoutScreen = () => {
                 </span>
               </div>
             )}
+              </div>
+            }
           </div>
         </div>
       </div>

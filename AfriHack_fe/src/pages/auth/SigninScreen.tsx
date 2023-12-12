@@ -53,7 +53,7 @@ const SigninScreen = () => {
     console.log(email, password);
     signinApi({ email, password })
       .then((res: any) => {
-        console.log(res);
+        // console.log(res);
         dispatch(setUser(res));
       })
       .then(() => {
