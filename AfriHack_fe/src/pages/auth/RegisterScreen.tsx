@@ -9,6 +9,8 @@ import { registerApi } from "../../apis/authApis";
 import LoadingScreen from "../../components/private/LoadingScreen";
 // import { useNavigate } from "react-router-dom";
 const Register = () => {
+
+
   const [eye, setEye] = useState<boolean>(false);
   const onEye = () => {
     setEye(!eye);
@@ -30,8 +32,8 @@ const Register = () => {
   });
 
   const onSubmit = handleSubmit(async (data: any) => {
-    setLoading(true);
     const { userName, email, password } = data;
+    setLoading(true);
     registerApi({ email, userName, password }).then(() => {
       navigate("/auth/email");
     });
@@ -44,7 +46,7 @@ const Register = () => {
     <>
       {loading && <LoadingScreen />}
       <div
-        className="h-[100vh] w-full object-cover flex justify-center items-center"
+        className="h-[100vh] w-full object-cover flex justify-center items-center relative"
         style={{
           backgroundRepeat: "no-repeat",
           backgroundImage: `url(${img})`,
