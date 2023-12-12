@@ -3,33 +3,37 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { signinApi, verifiedApi } from "../../apis/authApis";
 import LoadingScreen from "../../components/private/LoadingScreen";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { setUser } from "../../global/globalState";
 // import { useNavigate } from "react-router-dom";
 const SigninScreen = () => {
-  const { token } = useParams();
+  const { userID } = useParams();
   const [verify, setVerify] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const user = useSelector((state: any) => state.user);
-
+  const user = useSelector((state: any) => state.setUser);
+  const navigate = useNavigate();
   const [eye, setEye] = useState<boolean>(false);
   const onEye = () => {
     setEye(!eye);
   };
 
   useEffect(() => {
-    if (token) {
-      const decode: any = jwtDecode(token);
+    if (userID) {
+      const decode: any = jwtDecode(userID);
       setVerify(decode.id);
       verifiedApi(decode.id);
+
     }
   }, []);
+
+ 
   const model = yup.object({
     email: yup.string().required(),
     password: yup.string().required(),
@@ -47,9 +51,14 @@ const SigninScreen = () => {
     const { email, password } = data;
     setLoading(true);
     console.log(email, password);
-    signinApi({ email, password }).then((res) => {
-      dispatch(user(res));
-    });
+    signinApi({ email, password })
+      .then((res: any) => {
+        console.log(res);
+        dispatch(setUser(res));
+      })
+      .then(() => {
+        navigate("/");
+      });
   });
 
   return (

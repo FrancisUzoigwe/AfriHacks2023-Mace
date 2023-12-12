@@ -17,8 +17,8 @@ const CreateScreen = () => {
 
   return (
     <div
-      className="w-full z-[300] h-full fixed flex-col top-0 flex items-center "
-      style={{ backdropFilter: "blur(4px)" }}
+      className="w-full z-[300] h-full fixed flex-col top-0 flex items-center bg-gray-300"
+      // style={{ backdropFilter: "blur(4px)" }}
     >
       <div className="w-full z-[300] h-full flex items-center justify-center ">
         <div className="flex w-[800px] h-[300px] items-center justify-around flex-col border border-black rounded-[20px]">
@@ -46,7 +46,25 @@ const CreateScreen = () => {
                 className="object-cover w-full h-full"
               />
             </div>
-            <div>Details</div>
+            <div className="px-2 py-2 border border-gray-300 w-auto h-auto">
+              <div className="flex flex-col px-2 py-2 ">
+                Product Name:
+                <div className="w-full h-[35px] border border-gray-700 rounded-md overflow-hidden">
+                  <input type="text"  className="w-full h-full pl-3 outline-none  "/>
+                </div>
+              </div>
+              <div className="flex flex-col px-2 py-2 ">
+                Price:
+                <div className="w-full h-[35px] border border-gray-700 rounded-md overflow-hidden">
+                  <input type="text" className="w-full h-full pl-3 outline-none  "/>
+                </div>
+              </div>
+              <div className="w-ful items-center flex justify-center my-3">
+                <button className="px-3 py-2 rounded-md text-[14px]  bg-black text-white">
+                  Create Product
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

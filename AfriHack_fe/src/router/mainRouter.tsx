@@ -58,8 +58,8 @@ export const mainRouter = createBrowserRouter([
     element: (
       <PrivateRoute>
         <Layout />
-        //{" "}
-      </PrivateRoute>
+       
+    </PrivateRoute>
     ),
     children: [
       {

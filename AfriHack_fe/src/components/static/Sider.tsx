@@ -1,10 +1,15 @@
 import { TiArrowForward } from "react-icons/ti";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { buyerChangedToggle, buyerToggle } from "../../global/globalState";
+import {
+  buyerChangedToggle,
+  buyerToggle,
+  logOut,
+} from "../../global/globalState";
 import { useState } from "react";
 import { FiShoppingBag } from "react-icons/fi";
 import { TiShoppingCart } from "react-icons/ti";
+import { AiOutlineLogout } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 const Sider = () => {
@@ -63,6 +68,15 @@ const Sider = () => {
               {buyer && <div className="">See Cart</div>}
             </div>
           </Link>
+          <div
+            className="mt-10 flex items-center justify-start"
+            onClick={() => {
+              dispatch(logOut());
+            }}
+          >
+            <AiOutlineLogout className="text-3xl" />
+            {buyer && <div className="">Logout</div>}
+          </div>
         </div>
       </div>
     </div>
