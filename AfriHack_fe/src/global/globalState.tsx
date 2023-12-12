@@ -57,8 +57,10 @@ const globalState = createSlice({
       }
     },
 
-    removeFromCart: (state: any) => {
-      state.cart = [];
+    removeFromCart: (state: any, {payload}) => {
+      state.cart = state.cart.filter((el:any) => {
+        return el._id !== payload._id
+      });
     },
 
     removeQTYfromCart: (state: any, { payload }) => {
