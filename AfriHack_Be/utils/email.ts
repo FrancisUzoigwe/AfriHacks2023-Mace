@@ -6,15 +6,6 @@ import ejs from "ejs";
 import env from "dotenv";
 env.config();
 
-// const GOOGLE_ID:string = process.env.G_ID!; ;
-
-// const GOOGLE_SECRET:string = process.env.SECRET_GOOGLE!;
-
-// const GOOGLE_REFRESH_TOKEN:string = process.env.REFRESH_TOKEN!;
-
-// const GOOGLE_URL: string = process.env.G_URL!;
-
-// const GET_ACCESS:any = process.env.GET_ACCESS!
 const GOOGLE_REFRESH_TOKEN =
   "1//04Tz6MUlHfPXsCgYIARAAGAQSNwF-L9IrI_Bm_YjJXVFYfdGzRJj3TTvewcmqxuV__3TtQ1_oXUyrjPnMOCvd2GQ_zM4lkQf8Ixg";
 

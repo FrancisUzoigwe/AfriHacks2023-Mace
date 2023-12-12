@@ -8,7 +8,7 @@ const EmailScreen = () => {
           <SiMinutemailer className="text-9xl max-sm:text-7xl"/>
         </div>
         <div className="font-[Ever] my-2">Email sent!</div>
-        <div className="text-center">
+        <div className="text-center w-[90%]">
           An email has been sent, check your email for a link to continue
         </div>
       </div>
