@@ -42,6 +42,10 @@ export const mainRouter = createBrowserRouter([
     element: <SigninScreen />,
   },
   {
+    path: "/api/:userID/verify-user",
+    element: <SigninScreen />,
+  },
+  {
     path: "/auth/ask",
     element: <AskScreen />,
   },
@@ -53,8 +57,9 @@ export const mainRouter = createBrowserRouter([
     path: "/",
     element: (
       <PrivateRoute>
-      <Layout />
-      // </PrivateRoute>
+        <Layout />
+       
+    </PrivateRoute>
     ),
     children: [
       {
