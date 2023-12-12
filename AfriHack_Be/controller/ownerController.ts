@@ -57,6 +57,7 @@ export const signInOwner = async (req: Request, res: Response) => {
         if (owner.verified && owner.token === "") {
           return res.status(HTTP.OK).json({
             message: " StoreOwner Sign In successfull",
+            data:owner
           });
         } else {
           return res.status(HTTP.BAD).json({
@@ -83,29 +84,23 @@ export const signInOwner = async (req: Request, res: Response) => {
 
 export const verifyOwner = async (req: Request, res: Response) => {
   try {
-    const { token } = req.params;
+    const { ownerID } = req.params;
+  
+    const getOwner = await ownerModel.findById(ownerID)
 
-    const getID: any = jwt.verify(token, "code", (err, payload) => {
-      if (err) {
-        return err;
-      } else {
-        return payload;
-      }
-    });
-
-    if (getID) {
-      const realUser = await ownerModel.findByIdAndUpdate(
-        getID?.storeOwner?._id,
+    if (getOwner) {
+      const realOwner = await ownerModel.findByIdAndUpdate(
+        getOwner?._id,
         { verified: true, token: "" },
         { new: true }
       );
       return res.status(HTTP.UPDATE).json({
         message: "owner Verified",
-        data: realUser,
+        data: realOwner,
       });
     } else {
       return res.status(HTTP.BAD).json({
-        message: "token Invalid / storeOwner does not exist",
+        message: "storeOwner does not exist",
       });
     }
 
@@ -139,7 +134,6 @@ export const deleteOwner = async (
 
 export const findAllOwner = async (req: Request, res: Response):Promise<Response> => {
   try {
-    // const findAllOwners = await ownerModel.find({}, { _id : 1}) as iOwnerData[];
     const findAllOwners = await ownerModel.find() ;
 
     return res.status(HTTP.OK).json({
