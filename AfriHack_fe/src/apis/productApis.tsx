@@ -1,7 +1,9 @@
 import axios from "axios";
 
 const ProductURL: string = "http://localhost:2345/";
-export const viewAllProducts = async (data: any) => {
+
+
+export const viewAllProducts = async () => {
   try {
     return axios.get(`${ProductURL}/`).then((res: any) => {
       return res.data?.data;
