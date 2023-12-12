@@ -4,9 +4,9 @@ import { HTTP } from "../error/mainError";
 import { Role } from "../config/role";
 import jwt from "jsonwebtoken"
 import ownerModel from "../model/ownerModel";
-import { iOwnerData } from "../utils/interface";
 import crypto from "crypto"
 import env from "dotenv";
+import { sendAccountMail } from "../utils/email";
 env.config();
 
 
@@ -29,15 +29,13 @@ export const createStoreOwner = async (
       role: Role.STOREOWNER,
     });
 
-    const jwtToken = jwt.sign({ storeOwner }, process.env.SECRET_KEY!);
-    // sendAccountMail(storeOwner).then(() => {
-    //   console.log("Mail Sent ...")
-    // })
+    sendAccountMail(storeOwner).then(() => {
+      console.log("Mail Sent ...")
+    })
 
     return res.status(HTTP.CREATE).json({
       message: "storeOwner created Successfully",
       data: storeOwner,
-      jwtToken,
     });
   } catch (error: any) {
     return res.status(HTTP.BAD).json({

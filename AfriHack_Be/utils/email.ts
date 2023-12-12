@@ -6,15 +6,13 @@ import ejs from "ejs";
 import env from "dotenv";
 env.config();
 
-const GOOGLE_REFRESH_TOKEN =
-  "1//04Tz6MUlHfPXsCgYIARAAGAQSNwF-L9IrI_Bm_YjJXVFYfdGzRJj3TTvewcmqxuV__3TtQ1_oXUyrjPnMOCvd2GQ_zM4lkQf8Ixg";
+const GOOGLE_REFRESH_TOKEN = process.env.REFRESH_TOKEN!;
 
-const GOOGLE_SECRET = "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";
+const GOOGLE_SECRET = process.env.SECRET_GOOGLE!;
 
-const GOOGLE_ID =
-  "172413036255-qdhvp5rcl2ig1ibnb9jbmp49p6rksbjg.apps.googleusercontent.com";
+const GOOGLE_ID = process.env.G_ID!;
 
-const GOOGLE_URL = "https://developers.google.com/oauthplayground";
+const GOOGLE_URL = process.env.G_URL!;
 
 const oAuth = new google.auth.OAuth2(GOOGLE_ID, GOOGLE_SECRET, GOOGLE_URL);
 oAuth.setCredentials({ access_token: GOOGLE_REFRESH_TOKEN });
@@ -32,39 +30,24 @@ export const sendAccountMail = async (user: any) => {
         clientSecret: GOOGLE_SECRET,
         refreshToken: GOOGLE_REFRESH_TOKEN,
         accessToken: getAccess,
-        // accessToken: "ya29.a0AfB_byCfuN_BFOpl7tYahFF98ALfg2d7u4kBU1puqVDFI7pF3xvmTPpED47w9Izkvqo19F-_GZ-uOG1oFz4WRbSTWd-aN0stsutqHMKRF6wlhIxAdFHb4JqkMsfPgs-FSl9JIvs13IMgaMX-ujkgNP251rW5t4d2n9l8aCgYKAb4SAQ8SFQHGX2MiOkGZIry45jetnnUVLhDfMw0171",
       },
     });
 
     const token = jwt.sign(
       {
         id: user._id,
-        userToken: user.token
+        userToken: user.token,
       },
       process.env.SECRET_KEY!
     );
 
-    // const URL = "http://localhost:2345/api";
 
     const readData = path.join(__dirname, "../views/accountOpening.ejs");
-
-    // const data = {
-    //   name: user.userName,
-    //   token: user.token,
-    //   email: user.email,
-    //   url2: `${URL}/${token}/verify-user`,
-    //   url: `http://localhost:5173/api/${token}/verify-user`,
-    // };
-
-    // const passedData = {
-    //   url: `http://localhost:2345/api/${token}/verify-user`,
-    // };
 
     const html = await ejs.renderFile(readData, {
       name: user.userName,
       token: user.token,
       email: user.email,
-      url2: `${URL}/${token}/verify-user`,
       url: `http://localhost:5173/api/${token}/verify-user`,
     });
     const mailer = {
@@ -79,3 +62,4 @@ export const sendAccountMail = async (user: any) => {
     console.log(error.message);
   }
 };
+
