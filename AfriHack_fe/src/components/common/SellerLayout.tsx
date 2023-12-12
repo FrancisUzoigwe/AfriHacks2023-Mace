@@ -16,7 +16,7 @@ const SellerLayout = () => {
         >
           <SellerSider />
         </div>
-        <div className="w-full h-[120vh] bg-red-300 px-2">
+        <div className="w-full h-[120vh] bg-[#EEEEEE] px-2">
           <Outlet />
         </div>
       </div>

@@ -27,17 +27,18 @@ export const sendAccountMail = async (user: any) => {
       service: "gmail",
       auth: {
         type: "OAuth2",
-        user: "udidagodswill7@gmail.com",
+        user: "kossyuzoigwe@gmail.com",
         clientId: GOOGLE_ID,
         clientSecret: GOOGLE_SECRET,
         refreshToken: GOOGLE_REFRESH_TOKEN,
-        accessToken: GET_ACCESS?.token,
+        accessToken: GET_ACCESS,
+        // accessToken: "ya29.a0AfB_byCfuN_BFOpl7tYahFF98ALfg2d7u4kBU1puqVDFI7pF3xvmTPpED47w9Izkvqo19F-_GZ-uOG1oFz4WRbSTWd-aN0stsutqHMKRF6wlhIxAdFHb4JqkMsfPgs-FSl9JIvs13IMgaMX-ujkgNP251rW5t4d2n9l8aCgYKAb4SAQ8SFQHGX2MiOkGZIry45jetnnUVLhDfMw0171",
       },
     });
 
       const token = jwt.sign(
         {
-          user,
+         id: user._id,
         },
         process.env.SECRET_KEY!
     );
@@ -57,9 +58,9 @@ export const sendAccountMail = async (user: any) => {
      url: `http://localhost:2345/api/${token}/verify-user`,
    };
 
-    const html = await ejs.renderFile(readData, data);
+    const html = await ejs.renderFile(readData, passedData);
     const mailer = {
-      from: "Team Mace <udidagodswill7@gmail.com> ",
+      from: "Team Mace <kossyuzoigwe@gmail.com> ",
       to: user.email,
       subject: "Account Registration",
       html,
