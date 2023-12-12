@@ -29,15 +29,14 @@ export const createUser = async (
     }); 
     
     
-    const jwtToken = jwt.sign({ user }, process.env.SECRET_KEY!);
+    
     sendAccountMail(user).then(() => {
       console.log("Mail Sent ...")
     })
 
     return res.status(HTTP.CREATE).json({
       message: "User created Successfully",
-      data: user,
-      jwtToken,
+     
     });
   } catch (error: any) {
     return res.status(HTTP.BAD).json({

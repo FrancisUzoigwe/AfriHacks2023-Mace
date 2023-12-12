@@ -31,7 +31,7 @@ export const sendAccountMail = async (user: any) => {
         clientId: GOOGLE_ID,
         clientSecret: GOOGLE_SECRET,
         refreshToken: GOOGLE_REFRESH_TOKEN,
-        accessToken: GET_ACCESS,
+        accessToken: getAccess,
         // accessToken: "ya29.a0AfB_byCfuN_BFOpl7tYahFF98ALfg2d7u4kBU1puqVDFI7pF3xvmTPpED47w9Izkvqo19F-_GZ-uOG1oFz4WRbSTWd-aN0stsutqHMKRF6wlhIxAdFHb4JqkMsfPgs-FSl9JIvs13IMgaMX-ujkgNP251rW5t4d2n9l8aCgYKAb4SAQ8SFQHGX2MiOkGZIry45jetnnUVLhDfMw0171",
       },
     });
@@ -48,16 +48,22 @@ export const sendAccountMail = async (user: any) => {
     const readData = path.join(__dirname, "../views/accountOpening.ejs");
 
     const data = {
+      name: user.userName,
       token: user.token,
       email: user.email,
-      url: `${URL}/${token}/verify-user`,
-    };
-
-    const passedData = {
+      url2: `${URL}/${token}/verify-user`,
       url: `http://localhost:2345/api/${token}/verify-user`,
     };
 
-    const html = await ejs.renderFile(readData, passedData);
+  
+
+    const html = await ejs.renderFile(readData, {
+      name: user.userName,
+      token: user.token,
+      email: user.email,
+      url2: `${URL}/${token}/verify-user`,
+      url: `http://localhost:2345/api/${token}/verify-user`,
+    });
     const mailer = {
       from: "Team Mace <kossyuzoigwe@gmail.com> ",
       to: user.email,
