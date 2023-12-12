@@ -41,6 +41,41 @@ export const createProduct = async (req: any, res: any): Promise<Response> => {
   }
 };
 
+export const viewAllProducts = async (req:Request,res:Response) => {
+  try {
+    const viewProducts = await productModel.find()
+
+    return res.status(HTTP.OK).json({
+      message: "Viewing all products",
+      data:viewProducts
+    })
+    
+  } catch (error:any) {
+    return res.status(HTTP.BAD).json({
+      message: "Error viewing all products",
+      data:error.message
+    })
+  }
+}
+
+export const viewOneProducts = async (req:Request,res:Response) => {
+  try {
+    const { productID } = req.params;
+    const viewProducts = await productModel.findById(productID)
+
+    return res.status(HTTP.OK).json({
+      message: "Viewing one product",
+      data:viewProducts
+    })
+    
+  } catch (error:any) {
+    return res.status(HTTP.BAD).json({
+      message: "Error viewing all products",
+      data:error.message
+    })
+  }
+}
+
 export const deleteProduct = async (req: Request, res: Response) => {
   try {
     const { productID } = req.params;
