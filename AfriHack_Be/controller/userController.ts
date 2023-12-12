@@ -36,7 +36,7 @@ export const createUser = async (
 
     return res.status(HTTP.CREATE).json({
       message: "User created Successfully",
-     
+     data:user,
     });
   } catch (error: any) {
     return res.status(HTTP.BAD).json({
@@ -87,24 +87,13 @@ export const verifyUser = async (
   res: Response
 ) => {
   try {
-    const { token } = req.params;
+    const { userID } = req.params;
 
-    const getID: any = jwt.verify(
-      token,
-      process.env.SECRET_KEY!,
-      (err, payload) => {
-        if (err) {
-          return err;
-        } else {
-          return payload;
-        }
-      }
-    );
+    const getUser = await userModel.findById(userID)
 
-    
-    if (getID) {
+    if (getUser) {
         const realUser = await userModel.findByIdAndUpdate(
-            getID?.user?._id,
+            getUser._id,
             { verified: true, token: "" },
             { new: true }
       );

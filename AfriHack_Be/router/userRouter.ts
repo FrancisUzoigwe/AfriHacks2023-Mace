@@ -6,7 +6,7 @@ const router = Router();
 
 router.route("/create-user").post(createUser)
 router.route("/sign-in-user").post(signInUser)
-router.route("/:token/verify-user").patch(verifyUser)
+router.route("/:userID/verify-user").patch(verifyUser)
 router.route("/:userID/find-one-user").get(findOneUser)
 router.route("/find-all-users").get(findAllUser)
 router.route("/:userID/delete-user").delete(deleteUser)
