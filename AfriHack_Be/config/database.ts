@@ -1,6 +1,9 @@
 import { connect } from "mongoose"
+import env from "dotenv"
+env.config()
 
-const DB = "mongodb://localhost:27017/AfriHack"
+// const DB = "mongodb://localhost:27017/AfriHack"
+const DB:string = process.env.DB_STRING!;
 
 export const Database = async () => {
   try {

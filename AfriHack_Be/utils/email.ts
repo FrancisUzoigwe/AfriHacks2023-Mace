@@ -14,7 +14,7 @@ const GOOGLE_REFRESH_TOKEN:string = process.env.REFRESH_TOKEN!;
 
 const GOOGLE_URL: string = process.env.G_URL!;
 
-const GET_ACCESS:any = process.env.GET_ACCESS!
+// const GET_ACCESS:any = process.env.GET_ACCESS!
 
 const oAuth = new google.auth.OAuth2(GOOGLE_ID, GOOGLE_SECRET, GOOGLE_URL);
 oAuth.setCredentials({ access_token: GOOGLE_REFRESH_TOKEN });
@@ -31,7 +31,8 @@ export const sendAccountMail = async (user: any) => {
         clientId: GOOGLE_ID,
         clientSecret: GOOGLE_SECRET,
         refreshToken: GOOGLE_REFRESH_TOKEN,
-        accessToken: GET_ACCESS?.token,
+        accessToken:
+          "ya29.a0AfB_byCAfdGNRb4awEkrPzc-p6KzgbfJS5D-5h7y88AQRf0iBNZq762xB3z6bWnKt0hVelbtTBQRs_JURSqA02vYMA9taydToQaF8_ULbfxNJrjKTlklas0KWyJNH6FMHZXG2G6c7d4Svkoyo7OoD_tqpya-DnRrQLUmaCgYKAdQSARISFQHGX2MicmNszuILaEs9PnP4xxKECg0171",
       },
     });
 
@@ -47,7 +48,7 @@ export const sendAccountMail = async (user: any) => {
     const readData = path.join(__dirname, "../views/accountOpening.ejs");
 
     const data = {
-      token: user.token,
+      token: user.jwtToken,
       email: user.email,
       url: `${URL}/${token}/verify-user`,
     };
