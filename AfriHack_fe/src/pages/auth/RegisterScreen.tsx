@@ -32,7 +32,6 @@ const Register = () => {
   const onSubmit = handleSubmit(async (data: any) => {
     setLoading(true);
     const { userName, email, password } = data;
-
     registerApi({ email, userName, password }).then(() => {
       navigate("/auth/email");
     });
@@ -119,7 +118,6 @@ const Register = () => {
             <button
               className="bg-green-600 w-[95%] h-[40px] rounded-[20px] text-black text-[20px] font-semibold"
               type="submit"
-              
             >
               Register
             </button>
