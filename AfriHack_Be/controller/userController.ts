@@ -58,6 +58,7 @@ export const signInUser = async (req: Request, res: Response) => {
         if (user.verified && user.token === "") {
           return res.status(HTTP.OK).json({
             message: "Sign In successfull",
+            data:user
           });
         } else {
           return res.status(HTTP.BAD).json({
