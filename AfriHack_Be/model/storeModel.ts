@@ -7,7 +7,7 @@ const storeModel = new Schema<iStoreData>(
       type: String,
     },
     userID: {
-      type:String
+      type: String,
     },
     product: [
       {

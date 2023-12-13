@@ -1,32 +1,38 @@
-import { iOwnerData } from './../utils/interface';
-import { Schema, Types, model } from 'mongoose';
+import { iOwnerData } from "./../utils/interface";
+import { Schema, Types, model } from "mongoose";
 
-
-const ownerModel = new Schema<iOwnerData>({
+const ownerModel = new Schema<iOwnerData>(
+  {
     userName: {
-        type:String
+      type: String,
+      required: true,
     },
     email: {
-        type:String
+      type: String,
+      required: true,
+      unique: true,
     },
     password: {
-        type:String
+      type: String,
+      required: true,
     },
     verified: {
-        type: Boolean,
-        default:false
+      type: Boolean,
+      default: false,
     },
     token: {
-        type: String,
+      type: String,
     },
     role: {
-        type: String,
+      type: String,
     },
     store: {
-        type:[]
-    }
-}, {
+      type: [],
+    },
+  },
+  {
     timestamps: true,
-})
+  }
+);
 
-export default model<iOwnerData>("owners",ownerModel)
+export default model<iOwnerData>("owners", ownerModel);
