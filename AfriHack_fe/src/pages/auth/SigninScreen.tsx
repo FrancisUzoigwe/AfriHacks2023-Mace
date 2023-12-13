@@ -14,12 +14,12 @@ import { setUser } from "../../global/globalState";
 const SigninScreen = () => {
   const { userID } = useParams();
   const [verify, setVerify] = useState<string>("");
-  console.log(typeof verify);
+  console.log("Verified:", verify);
 
   const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
   const user = useSelector((state: any) => state.setUser);
-  console.log(typeof user);
+  console.log("This is the user:", user);
 
   const navigate = useNavigate();
   const [eye, setEye] = useState<boolean>(false);

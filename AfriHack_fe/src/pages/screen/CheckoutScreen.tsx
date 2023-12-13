@@ -14,7 +14,6 @@ const CheckoutScreen = () => {
   const user = useSelector((state: any) => state.user);
 
   const [ip, setIP] = useState<string>("");
-  console.log(typeof ip);
 
   const getData = async () => {
     const res = await axios.get("https://api.ipify.org/?format=json");
@@ -27,7 +26,6 @@ const CheckoutScreen = () => {
   }, []);
 
   const [state, setState]: any = useState();
-  console.log(typeof setState);
 
   const dispatch = useDispatch();
 
@@ -48,7 +46,7 @@ const CheckoutScreen = () => {
   // you can call this function anything
   const onSuccess = () => {
     // Implementation for whatever you want to do with reference and after success call.
-    console.log(Date.now());
+    // console.log(Date.now());
   };
 
   // you can call this function anything
