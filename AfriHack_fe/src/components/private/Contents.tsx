@@ -1,5 +1,4 @@
 import { Fade } from "react-awesome-reveal";
-import vite from "../../../public/vite.svg";
 interface iContent {
   background?: string;
   text?: string;

@@ -6,7 +6,6 @@ import {
   removeQTYfromCart,
 } from "../../global/globalState";
 import { useState, useEffect } from "react";
-import { getApproved } from "../../apis/approvedAPI";
 import axios from "axios";
 import { usePaystackPayment } from "react-paystack";
 
@@ -15,6 +14,7 @@ const CheckoutScreen = () => {
   const user = useSelector((state: any) => state.user);
 
   const [ip, setIP] = useState<string>("");
+  console.log(typeof ip);
 
   const getData = async () => {
     const res = await axios.get("https://api.ipify.org/?format=json");
@@ -27,6 +27,8 @@ const CheckoutScreen = () => {
   }, []);
 
   const [state, setState]: any = useState();
+  console.log(typeof setState);
+
   const dispatch = useDispatch();
 
   const config = {
