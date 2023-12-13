@@ -7,10 +7,10 @@ interface iUser {
   verified: boolean;
   token: string;
   role: string;
-  store?:iStore[]
+  store?: iStore[];
 }
 interface iOwner extends iUser {
-  store: iStore[],
+  store: iStore[];
 }
 
 interface iStore {
@@ -24,6 +24,7 @@ interface iProduct {
   price: number;
   image: string;
   imageID: string;
+  userID: string;
 }
 
 export interface iUserData extends iUser, Document {}

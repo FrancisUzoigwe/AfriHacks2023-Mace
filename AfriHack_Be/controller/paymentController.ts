@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
 import { HTTP } from './../error/mainError';
-import ownerModel from '../model/ownerModel';
 import https from "https"
+import userModel from '../model/userModel';
 
 export const payment = async (req: Request, res: Response) => {
   try {
-    const { userID } = req.body;
+    const { userID } = req.params;
     const { amount } = req.body;
 
-    const getUser = await ownerModel.findById(userID)
+    const getUser = await userModel.findById(userID)
 
     const params = JSON.stringify({
       email: getUser?.email,
