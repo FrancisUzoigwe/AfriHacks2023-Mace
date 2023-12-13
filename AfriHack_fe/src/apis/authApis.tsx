@@ -1,5 +1,5 @@
 import axios from "axios";
-const URL: string = "http://localhost:2345/api";
+const URL: string = "https://teammace.onrender.com/api";
 
 export const registerApi = async (data: any) => {
   try {

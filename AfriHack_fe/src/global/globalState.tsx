@@ -7,6 +7,7 @@ const initialState = {
   adminToggle: false,
   buyer: false,
   create: false,
+  loading: false,
 };
 
 const globalState = createSlice({
@@ -57,9 +58,9 @@ const globalState = createSlice({
       }
     },
 
-    removeFromCart: (state: any, {payload}) => {
-      state.cart = state.cart.filter((el:any) => {
-        return el._id !== payload._id
+    removeFromCart: (state: any, { payload }) => {
+      state.cart = state.cart.filter((el: any) => {
+        return el._id !== payload._id;
       });
     },
 
@@ -70,6 +71,12 @@ const globalState = createSlice({
         state.cart = state.cart.filter((el: any) => el._id !== payload._id);
       }
     },
+    loaded: (state: any) => {
+      state.toggle = true;
+    },
+    changeLoaded: (state: any) => {
+      state.toggle = false;
+    },
   },
 });
 
@@ -79,6 +86,8 @@ export const {
   setUser,
   logOut,
   adminChangedToggle,
+  changeLoaded,
+  loaded,
   adminToggled,
   buyerToggle,
   buyerChangedToggle,

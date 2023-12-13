@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const ProductURL: string = "http://localhost:2345";
+const ProductURL: string = "https://teammace.onrender.com";
 
 
 export const viewAllProducts = async () => {
