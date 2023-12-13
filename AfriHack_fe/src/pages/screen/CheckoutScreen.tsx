@@ -137,7 +137,7 @@ const CheckoutScreen = () => {
               </div>
             </div>
 
-            <button
+            {/* <button
               className="bg-black text-white w-full mt-4 h-12 rounded-md duration-300 transition-all hover:scale-[1.004] "
               // onClick={() => {
               //   getApproved({
@@ -151,7 +151,7 @@ const CheckoutScreen = () => {
               // }}
             >
               Checkout
-            </button>
+            </button> */}
 
             {state && (
               <div>
