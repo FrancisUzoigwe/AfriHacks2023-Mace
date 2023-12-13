@@ -177,14 +177,10 @@ const LandingScreen = () => {
       </Fade>
       <div className="w-full  mt-3 flex justify-center items-center">
         <div className="w-[90%] grid grid-cols-4 gap-10 max-md:grid-cols-3 max-sm:grid-cols-2 ">
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
+          <Cards Image={gown} price="4,000"/>
+          <Cards Image={sandal} price="2,500"/>
+          <Cards Image={bag}  price="5,400"/>
+          <Cards Image={image} price="3,250"/>
         </div>
       </div>
     </div>
