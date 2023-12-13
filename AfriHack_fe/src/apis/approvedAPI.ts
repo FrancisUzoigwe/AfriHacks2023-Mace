@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const URL = "https://api.us-east-1-main.seon.io/SeonRestService/fraud-api/v2/";
+console.log(typeof URL);
 
 export const getApproved = async (data:{}) => {
   try {

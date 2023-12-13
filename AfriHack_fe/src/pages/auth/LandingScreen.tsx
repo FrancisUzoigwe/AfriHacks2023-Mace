@@ -6,6 +6,11 @@ import { MdDeliveryDining } from "react-icons/md";
 import { SiAdguard } from "react-icons/si";
 import { BiSupport } from "react-icons/bi";
 import { RiRobot2Fill } from "react-icons/ri";
+import image from "../../../src/assets/shoe.webp";
+import sandal from "../../../src/assets/sandal.webp";
+import gown from "../../../src/assets/gown.webp";
+import bag from "../../assets/bag.webp";
+import head from "../../assets/HeadPhone.png";
 import React from "react";
 import Cards from "../../components/private/Cards";
 import { Fade } from "react-awesome-reveal";
@@ -89,12 +94,54 @@ const LandingScreen = () => {
         </motion.div>
       </div>
       <div className="mt-2 grid grid-cols-3 gap-3 w-[95%] max-sm:w-[90%] max-md:grid-cols-2 max-sm:grid-cols-1">
-        <Contents background="bg-white" />
-        <Contents background="bg-white" />
-        <Contents background="bg-white" />
-        <Contents background="bg-white" />
-        <Contents background="bg-white" />
-        <Contents background="bg-white" />
+        <Contents
+          background="bg-white"
+          Image={image}
+          text="Italian shoes"
+          button="Start shopping"
+          buttonColor="bg-green-500 "
+          buttonTextColor="text-white"
+        />
+        <Contents
+          background="bg-white"
+          Image={sandal}
+          text="School Sandals"
+          button="Start Shopping"
+          buttonColor="bg-red-500"
+          buttonTextColor="text-white"
+        />
+        <Contents
+          background="bg-white"
+          Image={gown}
+          text="Cinderella's Gown"
+          button="Start Shopping"
+          buttonColor="bg-blue-500"
+          buttonTextColor="text-white"
+        />
+        <Contents
+          background="bg-white"
+          Image={bag}
+          text="School Bag"
+          buttonColor="bg-red-500"
+          buttonTextColor="white"
+          button="Get Started"
+        />
+        <Contents
+          background="bg-white"
+          Image={head}
+          text="Beat's Headphone"
+          button="Get Started "
+          buttonColor="bg-blue-500"
+          buttonTextColor="text-white"
+        />
+        <Contents
+          background="bg-white"
+          Image={sandal}
+          text="School Sandals"
+          button="Start Shopping"
+          buttonColor="bg-red-500"
+          buttonTextColor="text-white"
+        />
       </div>
       <div className="w-[90%] h-auto grid grid-cols-4 max-sm:grid-cols-1 mt-4  max-md:grid-cols-2 gap-2">
         <Offers

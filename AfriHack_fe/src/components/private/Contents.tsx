@@ -1,5 +1,4 @@
 import { Fade } from "react-awesome-reveal";
-import vite from "../../../public/vite.svg";
 interface iContent {
   background?: string;
   text?: string;
@@ -24,10 +23,10 @@ const Contents: React.FC<iContent> = ({
         >
           <div className="h-[150px] max-sm:h-[100px] w-full rounded-lg my-3 mx-3 flex  items-center justify-between">
             <div>
-              <div className="my-2">{text}</div>
+              <div className="my-2 uppercase font-[Ever]">{text}</div>
               <div className="my-2">
                 <button
-                  className={`px-5 py-[6px] rounded-full ${buttonColor} ${buttonTextColor} text-[14px]`}
+                  className={`px-5 py-2 rounded-full ${buttonColor} ${buttonTextColor} text-[14px]`}
                 >
                   {button}
                 </button>
