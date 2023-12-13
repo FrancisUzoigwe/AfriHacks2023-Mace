@@ -36,6 +36,7 @@ const Register = () => {
     const { userName, email, password } = data;
     registerApi({ email, userName, password })
       .then((res) => {
+        console.log(typeof res)
         navigate("/auth/email");
         setLoading(false);
       })
