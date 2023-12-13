@@ -8,6 +8,7 @@ import {
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { usePaystackPayment } from "react-paystack";
+import { getApproved } from "../../apis/approvedAPI";
 
 const CheckoutScreen = () => {
   const cart = useSelector((state: any) => state.cart);
@@ -21,7 +22,6 @@ const CheckoutScreen = () => {
   };
 
   useEffect(() => {
-    //passing getData method to the lifecycle method
     getData();
   }, []);
 
@@ -123,7 +123,7 @@ const CheckoutScreen = () => {
         <div className="w-full flex justify-center mb-8 ">
           <div className="w-[95%] border rounded-md p-3 ">
             <div className="flex justify-between items-center">
-              <div>{cart?.length}  Items </div>
+              <div>{cart?.length} Items </div>
               <div>
                 ₦
                 {cart
@@ -139,16 +139,16 @@ const CheckoutScreen = () => {
 
             <button
               className="bg-black text-white w-full mt-4 h-12 rounded-md duration-300 transition-all hover:scale-[1.004] "
-              // onClick={() => {
-              //   getApproved({
-              //     name: user?.userName,
-              //     email: user?.email,
-              //     ip,
-              //     bin:"",
-              //   }).then((res: any) => {
-              //     setState(res.data.data.data);
-              //   });
-              // }}
+              onClick={() => {
+                getApproved({
+                  name: user?.userName,
+                  email: user?.email,
+                  ip,
+                  bin: "",
+                }).then((res: any) => {
+                  setState("this:", res.data);
+                });
+              }}
             >
               Checkout
             </button>

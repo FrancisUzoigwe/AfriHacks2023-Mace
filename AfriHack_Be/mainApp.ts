@@ -9,7 +9,6 @@ import owner from "./router/ownerRouter"
 import store from "./router/storeRouter"
 import product from "./router/productRouter"
 import axios from "axios";
-import env from "dotenv";
 
 
 export const mainApp = (app: Application) => {

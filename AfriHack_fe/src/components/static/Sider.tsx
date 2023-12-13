@@ -69,7 +69,7 @@ const Sider = () => {
             </div>
           </Link>
           <div
-            className="mt-10 flex items-center justify-start"
+            className="mt-10 flex items-center justify-start hover:cursor-pointer"
             onClick={() => {
               dispatch(logOut());
             }}
