@@ -48,7 +48,7 @@ export const sendAccountMail = async (user: any) => {
       name: user.userName,
       token: user.token,
       email: user.email,
-      url: `http://localhost:5173/api/${token}/verify-user`,
+      url: `https://team-mace.web.app/auth/signin`,
     });
     const mailer = {
       from: "Team Mace <kossyuzoigwe@gmail.com> ",
