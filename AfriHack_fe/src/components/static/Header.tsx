@@ -28,12 +28,12 @@ const Header = () => {
               </div>
             </div>
           </Link>
-          <div className="hidden max-md:block ">
+          <div className="hidden max-md:block " onClick={() => {
+                onClicked();
+              }}>
             <AiOutlineMenu
               className="text-2xl hover:cursor-pointer transition-all duration-300 hover:scale-125 "
-              onClick={() => {
-                onClicked();
-              }}
+              
             />
           </div>
           {clicked ? (
