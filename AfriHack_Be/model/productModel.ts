@@ -1,6 +1,5 @@
-import { iProductData } from './../utils/interface';
+import { iProductData } from "./../utils/interface";
 import { Schema, model } from "mongoose";
-
 
 const productModel = new Schema<iProductData>(
   {
@@ -22,10 +21,13 @@ const productModel = new Schema<iProductData>(
     imageID: {
       type: String,
     },
+    userID: {
+      type: String,
+    },
   },
   {
     timestamps: true,
   }
 );
 
-export default model<iProductData>("products",productModel)
+export default model<iProductData>("products", productModel);
