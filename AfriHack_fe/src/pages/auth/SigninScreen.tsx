@@ -11,17 +11,16 @@ import LoadingScreen from "../../components/private/LoadingScreen";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { setUser } from "../../global/globalState";
-// import { useNavigate } from "react-router-dom";
 const SigninScreen = () => {
   const { userID } = useParams();
   const [verify, setVerify] = useState<string>("");
   console.log(typeof verify);
-  
+
   const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
   const user = useSelector((state: any) => state.setUser);
   console.log(typeof user);
-  
+
   const navigate = useNavigate();
   const [eye, setEye] = useState<boolean>(false);
   const onEye = () => {
@@ -33,11 +32,9 @@ const SigninScreen = () => {
       const decode: any = jwtDecode(userID);
       setVerify(decode.id);
       verifiedApi(decode.id);
-
     }
   }, []);
 
- 
   const model = yup.object({
     email: yup.string().required(),
     password: yup.string().required(),
@@ -52,12 +49,10 @@ const SigninScreen = () => {
   });
 
   const onSubmit = handleSubmit(async (data: any) => {
-    const { email, password } = data;
     setLoading(true);
-    console.log(email, password);
+    const { email, password } = data;
     signinApi({ email, password })
       .then((res: any) => {
-        // console.log(res);
         dispatch(setUser(res));
       })
       .then(() => {

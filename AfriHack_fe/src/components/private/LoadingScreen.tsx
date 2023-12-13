@@ -2,7 +2,10 @@ import { BallTriangle } from "react-loader-spinner";
 
 const LoadingScreen = () => {
   return (
-    <div className="w-full h-screen flex items-center justify-center flex-col absolute " style={{backdropFilter: "blur(4px)"}}>
+    <div
+      className="w-full h-screen flex items-center absolute z-[500] justify-center flex-col "
+      style={{ backdropFilter: "blur(4px)" }}
+    >
       <BallTriangle
         height={100}
         width={100}
@@ -11,8 +14,9 @@ const LoadingScreen = () => {
         ariaLabel="ball-triangle-loading"
         visible={true}
       />
-      <div className="mt-10 font-[Zah]">Getting datas....</div>
+      <div className="mt-10 font-[Zah] text-white">Getting datas....</div>
     </div>
+    // </div>
   );
 };
 

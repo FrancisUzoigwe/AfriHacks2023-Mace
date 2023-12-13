@@ -7,10 +7,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { registerApi } from "../../apis/authApis";
 import LoadingScreen from "../../components/private/LoadingScreen";
-// import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loaded } from "../../global/globalState";
 const Register = () => {
-
-
+  const dispatch = useDispatch();
   const [eye, setEye] = useState<boolean>(false);
   const onEye = () => {
     setEye(!eye);
@@ -32,12 +32,15 @@ const Register = () => {
   });
 
   const onSubmit = handleSubmit(async (data: any) => {
-    const { userName, email, password } = data;
     setLoading(true);
-    registerApi({ email, userName, password }).then(() => {
-      navigate("/auth/email");
-    });
-    setLoading(false);
+    const { userName, email, password } = data;
+    registerApi({ email, userName, password })
+      .then((res) => {
+        console.log(typeof res)
+        navigate("/auth/email");
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
   });
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -123,7 +126,12 @@ const Register = () => {
             >
               Register
             </button>
-            <div className="text-[13px] mt-2">
+            <div
+              className="text-[13px] mt-2 hover:cursor-pointer"
+              onClick={() => {
+                dispatch(loaded());
+              }}
+            >
               Already have an Account ?{" "}
               <Link to="/auth/signin">
                 <span className="text-[green] font-bold hover:underline hover:cursor-pointer">
